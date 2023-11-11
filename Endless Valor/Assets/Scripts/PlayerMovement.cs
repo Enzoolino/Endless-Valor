@@ -40,11 +40,12 @@ public class PlayerMovement : MonoBehaviour
     private bool isRunning;
     private bool isJumping;
     private bool isFalling;
+    //private bool isLanding;
     
     private bool isAttacking;
     private bool isAttackingLight;
     private bool isAttackingHeavy;
-    public bool isHurt;
+    [HideInInspector] public bool isHurt;
     
     private bool isWallGrabbing;
     private bool isWallJumping;
@@ -83,11 +84,12 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovementHandler(); // Simple A, D movement handling
-        SetDirection(); // Player visuals are following direction
-        AnimationHandler(); // Handles all of the animations 
+        SetPlayerDirection(); // Player visuals are following direction
         StateHandler(); // Handles all of the player states
+        AnimationHandler(); // Handles all of the animations 
     }
 
+    #region Movement
     private void MovementHandler()
     {
         Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
@@ -101,7 +103,6 @@ public class PlayerMovement : MonoBehaviour
                 if (IsGrounded())
                 {
                     isRunning = true;
-                    animator.SetBool("isRunning", true);
                 }
                 
                 direction = (int)inputVector.x;
@@ -109,7 +110,6 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 isRunning = false;
-                animator.SetBool("isRunning", false);
             }
         }
     }
@@ -143,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
             //Landing
         }
         
-        //Attacks Handling
+        //Attacks Handler
         attackTimer -= Time.deltaTime;
 
         if (attackTimer <= 0)
@@ -157,14 +157,7 @@ public class PlayerMovement : MonoBehaviour
             character.velocity = Vector3.zero;
         }
         
-        //Wall Jumping Handling
-        wallJumpTimer -= Time.deltaTime;
-
-        if (wallJumpTimer <= 0)
-        {
-            isWallJumping = false;
-        }
-
+        //Wall Sliding Handler
         if (IsNextToWall() && !IsGrounded())
         {
             if((direction == -1 && Input.GetKey(KeyCode.A)) || (direction == 1 && Input.GetKey(KeyCode.D)))
@@ -179,6 +172,14 @@ public class PlayerMovement : MonoBehaviour
             isWallGrabbing = false;
             character.gravityScale = 1.0f;
         }
+        
+        //Wall Jumping Handler
+        wallJumpTimer -= Time.deltaTime;
+
+        if (wallJumpTimer <= 0)
+        {
+            isWallJumping = false;
+        }
 
         if (isWallJumping)
         {
@@ -188,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    private void SetDirection()
+    private void SetPlayerDirection()
     {
         if (direction == 1)
         {
@@ -199,7 +200,9 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
     }
+    #endregion
     
+    #region Actions
     private void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && canMove) 
@@ -210,7 +213,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (isWallGrabbing)
             {
-                Debug.Log("Attempting walljump");
+                Debug.Log("Attempting Wall Jump");
                 wallJumpTimer = wallJumpTime;
                 isStartingWallJump = true;
                 isWallJumping = true;
@@ -280,7 +283,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    
+    #endregion
+
+    #region Animations
     private void AnimationHandler()
     {
         animator.SetBool("isRunning", isRunning);
@@ -311,7 +316,12 @@ public class PlayerMovement : MonoBehaviour
             animator.SetTrigger("WallJumping");
             isStartingWallJump = false;
         }
-        
+
+        /*if (isLanding)
+        {
+            animator.SetTrigger("Landing");
+            isLanding = false;
+        }*/
     }
     
     private void ResetAllAnimations()
@@ -320,7 +330,9 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isRunning", false);
         animator.SetBool("isFalling", false);
     }
+    #endregion
     
+    #region Utility
     private bool IsGrounded()
     {
         float extraHeightText = 0.05f;
@@ -341,6 +353,6 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(boxCollider2D.bounds.center, raycastDirection * (boxCollider2D.bounds.extents.x + wallDetectionRange), rayColor);
         return raycastHit.collider != null;
     }
-    
+    #endregion
     
 }
