@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,8 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 6.0f;
     
     [Header("Attacking")]
-    [SerializeField] private float lightAttackCooldown = 1.0f;
-    [SerializeField] private float heavyAttackCooldown = 1.5f;
+    [SerializeField] private float lightAttackCooldown = 0.5f;
+    [SerializeField] private float heavyAttackCooldown = 1.0f;
     [SerializeField] private float lightAttackDamage = 25.0f;
     [SerializeField] private float heavyAttackDamage = 50.0f;
     [SerializeField] private Transform lightAttackBox;
@@ -18,7 +18,8 @@ public class PlayerMovement : MonoBehaviour
     
     [Header("Wall Jumping")]
     [SerializeField] private float wallJumpTime = 0.2f;
-    [SerializeField] private float slideFromWallForce = 0.5f;
+    [SerializeField] private float wallSlideSpeed = 0.5f;
+    [SerializeField] private Vector2 wallJumpForce;
 
     [Header("References")]
     [SerializeField] private LayerMask groundLayerMask;
@@ -29,21 +30,30 @@ public class PlayerMovement : MonoBehaviour
     //Privates
     private Rigidbody2D character;
     private PlayerInputActions playerInputActions;
-    //private PolygonCollider2D polygonCollider2D;
     private BoxCollider2D boxCollider2D;
 
     //Flags
-    private bool isWalking;
+    private int direction = 1; //1 - right -1 - left
+    
+    private bool canMove = true;
+    
+    private bool isRunning;
     private bool isJumping;
     private bool isFalling;
-    private bool canMove = true;
+    
     private bool isAttacking;
-    private int direction = 1;
-    private bool isWallSticking;
+    private bool isAttackingLight;
+    private bool isAttackingHeavy;
+    public bool isHurt;
+    
+    private bool isWallGrabbing;
+    private bool isWallJumping;
+    private bool isStartingWallJump;
 
     //Timers
     private float attackTimer;
     private float wallJumpTimer;
+    
 
     #region Input Enable/Disable
     private void OnEnable()
@@ -66,69 +76,73 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         character = GetComponent<Rigidbody2D>();
-        //polygonCollider2D = GetComponent<PolygonCollider2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         playerInputActions = new PlayerInputActions();
     }
 
     private void FixedUpdate()
     {
-        //Simple Movement Handling
+        MovementHandler(); // Simple A, D movement handling
+        SetDirection(); // Player visuals are following direction
+        AnimationHandler(); // Handles all of the animations 
+        StateHandler(); // Handles all of the player states
+    }
+
+    private void MovementHandler()
+    {
         Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
 
         if (canMove)
         {
             character.velocity = new Vector2(inputVector.x * playerSpeed, character.velocity.y);
-
+            
             if (playerInputActions.Player.Movement.inProgress)
             {
                 if (IsGrounded())
                 {
-                    isWalking = true;
+                    isRunning = true;
                     animator.SetBool("isRunning", true);
                 }
-
-                if (Input.GetKey(KeyCode.A))
-                {
-                    direction = -1;
-                    transform.localScale = new Vector3(-1, 1, 1);
-                }
-                else if (Input.GetKey(KeyCode.D))
-                {
-                    direction = 1;
-                    transform.localScale = new Vector3(1, 1, 1);
-                }
+                
+                direction = (int)inputVector.x;
             }
             else
             {
-                isWalking = false;
+                isRunning = false;
                 animator.SetBool("isRunning", false);
             }
         }
+    }
 
-        //Jump & Fall Animations Handling
-        if (character.velocity.y > 0 && !IsGrounded() && !isWallSticking)
+    private void StateHandler()
+    {
+        //Movement Checker
+        if (!isAttacking && wallJumpTimer <= 0)
+            canMove = true;
+        else
+            canMove = false;
+        
+        //Jump Handler
+        if (character.velocity.y > 0 && !IsGrounded() && !isWallGrabbing)
         {
             isJumping = true;
-            animator.SetBool("isJumping", true);
         }
         
-        if(character.velocity.y < 0 && !IsGrounded() && !isWallSticking)
+        //Falling Handler
+        if(character.velocity.y < 0 && !IsGrounded() && !isWallGrabbing)
         {
             isJumping = false;
             isFalling = true;
-            animator.SetBool("isFalling", true);
         }
         
+        //Landing Handler
         if ((IsGrounded() || character.velocity.y == 0))
         {
             isJumping = false;
             isFalling = false;
-            animator.SetBool("isJumping", false);
-            animator.SetBool("isFalling", false);
+            //Landing
         }
-
-
+        
         //Attacks Handling
         attackTimer -= Time.deltaTime;
 
@@ -137,48 +151,55 @@ public class PlayerMovement : MonoBehaviour
             isAttacking = false;
         }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("AttackLight") || animator.GetCurrentAnimatorStateInfo(0).IsName("AttackHeavy"))
+        if (isAttacking)
         {
             canMove = false;
             character.velocity = Vector3.zero;
         }
-        else
-        {
-            canMove = true;
-        }
-
+        
         //Wall Jumping Handling
         wallJumpTimer -= Time.deltaTime;
 
-        if (wallJumpTimer <= 0 && !isAttacking)
+        if (wallJumpTimer <= 0)
         {
-            canMove = true;
+            isWallJumping = false;
         }
 
         if (IsNextToWall() && !IsGrounded())
         {
             if((direction == -1 && Input.GetKey(KeyCode.A)) || (direction == 1 && Input.GetKey(KeyCode.D)))
             {
-                isWallSticking = true;
+                isWallGrabbing = true;
+                character.gravityScale = 0f;
+                character.velocity = new Vector3(0, -wallSlideSpeed, 0);
             }
-        }
-        
-
-        if (isWallSticking)
-        {
-            animator.SetBool("isHanging", true);
-            character.gravityScale = 0f;
-            character.velocity = new Vector3(0, -slideFromWallForce, 0);
         }
         else
         {
-            animator.SetBool("isHanging", false);
+            isWallGrabbing = false;
             character.gravityScale = 1.0f;
         }
-       
+
+        if (isWallJumping)
+        {
+            character.gravityScale = 1.0f;
+            character.velocity = new Vector2(-direction * wallJumpForce.x, wallJumpForce.y);
+        }
+        
     }
 
-  
+    private void SetDirection()
+    {
+        if (direction == 1)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (direction == -1)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
+    
     private void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && canMove) 
@@ -187,25 +208,24 @@ public class PlayerMovement : MonoBehaviour
             {
                 character.velocity += new Vector2(0, jumpHeight);
             }
-            else if (isWallSticking && wallJumpTimer <= 0)
+            else if (isWallGrabbing)
             {
+                Debug.Log("Attempting walljump");
                 wallJumpTimer = wallJumpTime;
-                canMove = false;
-                character.velocity = new Vector2(-transform.localScale.x * playerSpeed, jumpHeight);
-                character.gravityScale = 1.0f;
-                isWallSticking = false;
+                isStartingWallJump = true;
+                isWallJumping = true;
             }
         } 
     }
-
+    
     private void LightAttack(InputAction.CallbackContext context)
     {
         if (context.performed && !isAttacking)
         {
             isAttacking = true;
+            isAttackingLight = true;
+            isRunning = false;
             attackTimer = lightAttackCooldown;
-            animator.SetBool("isRunning", false);
-            animator.SetTrigger("AttackingLight");
 
             Collider2D[] hits = Physics2D.OverlapBoxAll(lightAttackBox.position, lightAttackBox.localScale, 0f, enemyLayerMask);
 
@@ -226,7 +246,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 Debug.Log("No enemy in range, no hit detected");
             }
-
         }
     }
 
@@ -235,46 +254,73 @@ public class PlayerMovement : MonoBehaviour
         if (context.performed && !isAttacking)
         {
             isAttacking = true;
+            isAttackingHeavy = true;
+            isRunning = false;
             attackTimer = heavyAttackCooldown;
-            animator.SetBool("isRunning", false);
-            animator.SetTrigger("AttackingHeavy");
+            
+            Collider2D[] hits = Physics2D.OverlapBoxAll(heavyAttackBox.position, heavyAttackBox.localScale, 0f, enemyLayerMask);
 
-            float animationLength = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-            float startTime = animationLength / 2f;
-
-            StartCoroutine(DealHeavyDamageDelayed(startTime));
-
-        }
-    }
-
-    //Function exists to time the heavy attack with monster hit animation
-    private IEnumerator DealHeavyDamageDelayed(float startTime)
-    {
-        yield return new WaitForSeconds(startTime);
-
-        Collider2D[] hits = Physics2D.OverlapBoxAll(heavyAttackBox.position, heavyAttackBox.localScale, 0f, enemyLayerMask);
-
-        foreach (Collider2D hit in hits)
-        {
-            if (!hit.isTrigger)
+            foreach (Collider2D hit in hits)
             {
-                EnemyStats enemyStats = hit.GetComponentInParent<EnemyStats>();
-
-                if (enemyStats != null)
+                if (!hit.isTrigger)
                 {
-                    Debug.Log("Enemy hit!" + hit.name);
-                    enemyStats.TakeDamage(heavyAttackDamage);
+                    EnemyStats enemyStats = hit.GetComponentInParent<EnemyStats>();
+
+                    if (enemyStats != null)
+                    {
+                        Debug.Log("Enemy hit!" + hit.name);
+                        enemyStats.TakeDamage(heavyAttackDamage);
+                    }
                 }
             }
-        }
-
-        if (hits.Length <= 0)
-        {
-            Debug.Log("No enemy in range, no hit detected");
+            
+            if (hits.Length <= 0)
+            {
+                Debug.Log("No enemy in range, no hit detected");
+            }
         }
     }
+    
+    private void AnimationHandler()
+    {
+        animator.SetBool("isRunning", isRunning);
+        animator.SetBool("isJumping", isJumping);
+        animator.SetBool("isFalling", isFalling);
+        animator.SetBool("isHanging", isWallGrabbing);
 
+        if (isHurt)
+        {
+            animator.SetTrigger("Hit");
+            isHurt = false;
+        }
 
+        if (isAttackingLight)
+        {
+            animator.SetTrigger("AttackingLight");
+            isAttackingLight = false;
+        }
+
+        if (isAttackingHeavy)
+        {
+            animator.SetTrigger("AttackingHeavy");
+            isAttackingHeavy = false;
+        }
+
+        if (isStartingWallJump)
+        {
+            animator.SetTrigger("WallJumping");
+            isStartingWallJump = false;
+        }
+        
+    }
+    
+    private void ResetAllAnimations()
+    {
+        animator.SetBool("isJumping", false);
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isFalling", false);
+    }
+    
     private bool IsGrounded()
     {
         float extraHeightText = 0.05f;
@@ -296,10 +342,5 @@ public class PlayerMovement : MonoBehaviour
         return raycastHit.collider != null;
     }
     
-    private void ResetAllAnimations()
-    {
-        animator.SetBool("isJumping", false);
-        animator.SetBool("isRunning", false);
-        animator.SetBool("isFalling", false);
-    }
+    
 }

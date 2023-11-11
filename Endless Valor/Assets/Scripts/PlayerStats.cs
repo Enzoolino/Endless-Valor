@@ -7,13 +7,17 @@ public class PlayerStats : MonoBehaviour
     //Serialized
     [SerializeField] private float maxHealth = 100;
     [SerializeField] private Animator animator;
+    
 
     //Privates
     private float currentHealth;
+    private PlayerMovement playerMovement;
 
+    
 
     private void Awake()
     {
+        playerMovement = GetComponent<PlayerMovement>();
         currentHealth = maxHealth;
     }
 
@@ -24,13 +28,13 @@ public class PlayerStats : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Debug.Log("Gracz umar³!");
-            //Postaæ umiera
+            Debug.Log("Gracz umarÅ‚!");
+            //PostaÄ‡ umiera
         }
         else
         {
             Debug.Log("Gracz trafiony!");
-            animator.SetTrigger("Hit"); 
+            playerMovement.isHurt = true;
         }
     }
 
