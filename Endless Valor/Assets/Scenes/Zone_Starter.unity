@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 41947836}
   - component: {fileID: 41947835}
   - component: {fileID: 41947837}
+  - component: {fileID: 41947838}
   m_Layer: 8
   m_Name: Mushroom
   m_TagString: Enemy
@@ -240,7 +241,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41947831}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88459110131c6a3429feb60306d301b0, type: 3}
   m_Name: 
@@ -259,7 +260,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41947831}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eceaffd1f1f0bb1489a9471751458a56, type: 3}
   m_Name: 
@@ -292,7 +293,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41947831}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52ccdbe8eaf543f4d9fadeb95bef120e, type: 3}
   m_Name: 
@@ -300,6 +301,22 @@ MonoBehaviour:
   detectionEmote: {fileID: 7547248545302725651, guid: 0ee466099c378ae4199f23f62df15aad, type: 3}
   lostTargetEmote: {fileID: 1234841430034888750, guid: d388e4dd6d84a7045957a0210ef2faf9, type: 3}
   emotePosition: {fileID: 782234597}
+--- !u!114 &41947838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41947831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5020d04fd374744d98743cf96d7871c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: 46246bd0f4bf5e64da54debedfb25609, type: 2}
+  <MaxHealth>k__BackingField: 100
+  idleStateData: {fileID: 11400000, guid: becd14c4ecac8774f886701d83c18395, type: 2}
+  moveStateData: {fileID: 11400000, guid: aeb8f9f3666e1c64cbbe83375f425c90, type: 2}
 --- !u!1 &83754073
 GameObject:
   m_ObjectHideFlags: 0

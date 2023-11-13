@@ -11,7 +11,6 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] private GameObject enemyVisual;
 
     //Privates
-    private GroundEnemyAI groundEnemyAI;
     private Rigidbody2D rb;
     private float currentHealth;
 
@@ -23,8 +22,6 @@ public class EnemyStats : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
-        //groundEnemyAI = GetComponent<GroundEnemyAI>();
-
     }
 
     private void Update()
