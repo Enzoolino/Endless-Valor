@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mushroom_IdleState : EnemyIdleState
+public class Mushroom_LookForPlayerState : LookForPlayerState
 {
     private Mushroom enemy;
     
-    public Mushroom_IdleState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_EnemyIdleState stateData, Mushroom enemySpecific) : base(enemy, enemyStateMachine, animationBoolName, stateData)
+    public Mushroom_LookForPlayerState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_LookForPlayerState stateData, Mushroom specificEnemy) : base(enemy, enemyStateMachine, animationBoolName, stateData)
     {
-        this.enemy = enemySpecific;
+        this.enemy = specificEnemy;
     }
+
 
     public override void EnterState()
     {
@@ -24,19 +25,24 @@ public class Mushroom_IdleState : EnemyIdleState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (isPlayerInCloseAggroRange)
-        {
-            enemyStateMachine.ChangeState(enemy.PlayerDetectedState);
-        }
-        else if (isIdleTimeOver)
-        {
-            enemyStateMachine.ChangeState(enemy.MoveState);
-        }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+
+        if (isPlayerInCloseAggroRange)
+        {
+            enemyStateMachine.ChangeState(enemy.PlayerDetectedState);
+        }
+        else if (isAllTurnsTimeDone)
+        {
+            enemyStateMachine.ChangeState(enemy.MoveState);
+        }
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
     }
 }

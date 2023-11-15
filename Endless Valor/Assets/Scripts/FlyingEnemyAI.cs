@@ -73,7 +73,7 @@ public class FlyingEnemyAI : MonoBehaviour
             if (attackTimer <= 0)
             {
                 animator.SetTrigger("Attack1");
-                playerStats.TakeDamage(attackDamage);
+                //playerStats.TakeDamage(attackDamage);
                 attackTimer = attackCooldown;
             }
         }

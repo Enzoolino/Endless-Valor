@@ -194,7 +194,7 @@ public class GroundEnemyAI : MonoBehaviour
             if (attackTimer <= 0)
             {
                 //TODO: Attack Animation
-                playerStats.TakeDamage(attackDamage);
+                //playerStats.TakeDamage(attackDamage);
                 attackTimer = attackCooldown;
             }
         }

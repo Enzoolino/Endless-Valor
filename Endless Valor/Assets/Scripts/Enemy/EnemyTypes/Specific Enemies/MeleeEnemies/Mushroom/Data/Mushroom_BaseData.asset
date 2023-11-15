@@ -12,14 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b325f0b1105e2a4089a0077b4fbd936, type: 3}
   m_Name: Mushroom_BaseData
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  stunResistance: 3
+  stunRecoveryTime: 2
+  closeRangeActionDistance: 0.52
+  closeAggroDistance: 7
+  farAggroDistance: 8
   wallCheckDistance: 0.2
-  ledgeCheckDistance: 0.1
+  ledgeCheckDistance: 0.3
+  ledgeCheckDepth: 0.1
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   wallsLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   playerLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128

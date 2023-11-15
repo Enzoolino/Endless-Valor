@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float heavyAttackCooldown = 1.0f;
     [SerializeField] private float lightAttackDamage = 25.0f;
     [SerializeField] private float heavyAttackDamage = 50.0f;
+    [SerializeField] private float stunDamageAmount = 1.0f;
     [SerializeField] private Transform lightAttackBox;
     [SerializeField] private Transform heavyAttackBox;
     

@@ -202,11 +202,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.89853454
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f6b23939950da464cb2191a6b4bf3ee0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -215,7 +215,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!4 &41947834
 Transform:
@@ -314,9 +314,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 46246bd0f4bf5e64da54debedfb25609, type: 2}
-  <MaxHealth>k__BackingField: 100
   idleStateData: {fileID: 11400000, guid: becd14c4ecac8774f886701d83c18395, type: 2}
   moveStateData: {fileID: 11400000, guid: aeb8f9f3666e1c64cbbe83375f425c90, type: 2}
+  playerDetectedStateData: {fileID: 11400000, guid: dd9a0d7d0ceb78d49abdd33ea0422346, type: 2}
+  chargeStateData: {fileID: 11400000, guid: 0bf881575146cc544b5abc40fbffcd34, type: 2}
+  lookForPlayerStateData: {fileID: 11400000, guid: 20d732f8620567b438917672b93086f7, type: 2}
+  meleeAttackStateData: {fileID: 11400000, guid: 6434b3966c93ece42997a5bebb88615f, type: 2}
+  stunStateData: {fileID: 11400000, guid: f786b7d9abef69f4d8ef0e72c514de18, type: 2}
+  meleeAttackPosition: {fileID: 49836753}
+--- !u!1 &49836752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 49836753}
+  m_Layer: 8
+  m_Name: MeleeAttackPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &49836753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49836752}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.38600016, y: -0.32000017, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 83754074}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &83754073
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,6 +364,7 @@ GameObject:
   - component: {fileID: 83754074}
   - component: {fileID: 83754076}
   - component: {fileID: 83754075}
+  - component: {fileID: 83754077}
   m_Layer: 8
   m_Name: Mushroom - Visual
   m_TagString: Untagged
@@ -347,7 +384,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 49836753}
   m_Father: {fileID: 41947834}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &83754075
@@ -423,6 +461,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &83754077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83754073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03ef9f72daac1644a21ab638c26450b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &111804750
 GameObject:
   m_ObjectHideFlags: 0
@@ -2548,6 +2598,7 @@ MonoBehaviour:
   heavyAttackCooldown: 1
   lightAttackDamage: 25
   heavyAttackDamage: 50
+  stunDamageAmount: 1
   lightAttackBox: {fileID: 2016986491}
   heavyAttackBox: {fileID: 1907431731}
   wallJumpTime: 0.4

@@ -4,11 +4,12 @@ using UnityEngine;
 public class EnemyIdleState : EnemyState
 {
     protected D_EnemyIdleState stateData;
-
-    protected float idleTime;
-
+    
     protected bool flipAfterIdle;
     protected bool isIdleTimeOver;
+    protected bool isPlayerInCloseAggroRange;
+    
+    protected float idleTime;
     
     public EnemyIdleState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_EnemyIdleState stateData) : base(enemy, enemyStateMachine, animationBoolName)
     {
@@ -47,6 +48,12 @@ public class EnemyIdleState : EnemyState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
+        isPlayerInCloseAggroRange = enemy.CheckPlayerInCloseAggroRange();
     }
 
     public void SetFlipAfterIdle(bool flip)

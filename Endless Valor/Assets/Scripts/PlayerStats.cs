@@ -21,9 +21,9 @@ public class PlayerStats : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(AttackDetails attackDetails)
     {
-        currentHealth -= damage;
+        currentHealth -= attackDetails.damageAmount;
         Mathf.Clamp(currentHealth, 0, maxHealth);
 
         if (currentHealth <= 0)

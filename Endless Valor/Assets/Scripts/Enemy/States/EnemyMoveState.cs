@@ -6,6 +6,7 @@ public class EnemyMoveState : EnemyState
 
     protected bool isDetectingWall;
     protected bool isDetectingLedge;
+    protected bool isPlayerInCloseAggroRange;
     
     public EnemyMoveState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_EnemyMoveState stateData) : base(enemy, enemyStateMachine, animationBoolName)
     {
@@ -17,8 +18,7 @@ public class EnemyMoveState : EnemyState
         base.EnterState();
         enemy.SetVelocity(stateData.speed);
 
-        isDetectingLedge = enemy.CheckLedge();
-        isDetectingWall = enemy.CheckWall();
+        
     }
 
     public override void ExitState()
@@ -34,7 +34,14 @@ public class EnemyMoveState : EnemyState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
+        
         isDetectingLedge = enemy.CheckLedge();
         isDetectingWall = enemy.CheckWall();
+        isPlayerInCloseAggroRange = enemy.CheckPlayerInCloseAggroRange();
     }
 }

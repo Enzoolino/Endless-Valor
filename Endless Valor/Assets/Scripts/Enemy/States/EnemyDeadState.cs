@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyChaseState : EnemyState
+public class EnemyDeadState : EnemyState
 {
-    private GameObject _player;
+    private D_EnemyDeadState stateData;
     
-    public EnemyChaseState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName) : base(enemy, enemyStateMachine, animationBoolName)
+    public EnemyDeadState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_EnemyDeadState stateData) : base(enemy, enemyStateMachine, animationBoolName)
     {
-        _player = GameObject.FindGameObjectWithTag("Player");
+        this.stateData = stateData;
     }
-    
+
     public override void EnterState()
     {
         base.EnterState();
@@ -29,5 +29,10 @@ public class EnemyChaseState : EnemyState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
     }
 }

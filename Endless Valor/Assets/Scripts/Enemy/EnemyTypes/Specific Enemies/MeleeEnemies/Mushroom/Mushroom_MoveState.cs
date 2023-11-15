@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class Mushroom_MoveState : EnemyMoveState
 {
@@ -26,7 +23,11 @@ public class Mushroom_MoveState : EnemyMoveState
     {
         base.LogicUpdate();
 
-        if (isDetectingWall || isDetectingLedge)
+        if (isPlayerInCloseAggroRange)
+        {
+            enemyStateMachine.ChangeState(enemy.PlayerDetectedState);
+        }
+        else if (isDetectingWall || isDetectingLedge)
         {
             enemy.IdleState.SetFlipAfterIdle(true);
             enemyStateMachine.ChangeState(enemy.IdleState);
