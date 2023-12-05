@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDeadState : EnemyState
+public class Enemy_DeadState : EnemyState
 {
-    private D_EnemyDeadState stateData;
+    private D_Enemy_DeadState stateData;
     
-    public EnemyDeadState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_EnemyDeadState stateData) : base(enemy, enemyStateMachine, animationBoolName)
+    public Enemy_DeadState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_DeadState stateData) : base(enemy, enemyStateMachine, animationBoolName)
     {
         this.stateData = stateData;
     }

@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LookForPlayerState : EnemyState
+public class Enemy_LookForPlayerState : EnemyState
 {
-    protected D_LookForPlayerState stateData;
+    protected D_Enemy_LookForPlayerState stateData;
+    protected EnemyEmotesHandler emotesHandler;
 
     protected bool flipImmediately;
     protected bool isPlayerInCloseAggroRange;
@@ -13,28 +15,39 @@ public class LookForPlayerState : EnemyState
 
     protected float lastTurnTime;
     protected int amountOfTurnsDone;
+
     
-    public LookForPlayerState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_LookForPlayerState stateData) : base(enemy, enemyStateMachine, animationBoolName)
+    public Enemy_LookForPlayerState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_LookForPlayerState stateData, EnemyEmotesHandler emotesHandler) : base(enemy, enemyStateMachine, animationBoolName)
     {
         this.stateData = stateData;
+        this.emotesHandler = emotesHandler;
     }
 
 
     public override void EnterState()
     {
         base.EnterState();
-
+        
+        emotesHandler.SetEmoteVisibility(true);
+        emotesHandler.LookForPlayerEmoteHandler(); // Handle emote
+        
         isAllTurnsDone = false;
         isAllTurnsTimeDone = false;
         lastTurnTime = startTime;
         amountOfTurnsDone = 0;
         
         enemy.SetVelocity(0f);
+        
+        Debug.Log("Entering LookForPlayer State");
     }
 
     public override void ExitState()
     {
         base.ExitState();
+        emotesHandler.SetEmoteVisibility(false);
+        emotesHandler.LookForPlayerEmoteHandler(); // Handle emote
+        
+        Debug.Log("Exiting LookForPlayer State");
     }
 
     public override void LogicUpdate()
@@ -82,4 +95,6 @@ public class LookForPlayerState : EnemyState
     {
         flipImmediately = flip;
     }
+    
+    
 }

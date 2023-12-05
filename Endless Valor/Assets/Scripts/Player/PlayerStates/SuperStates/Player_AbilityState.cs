@@ -29,7 +29,6 @@ public class Player_AbilityState : PlayerState
         
         if (isAbilityDone)
         {
-            Debug.Log("Teraz wbijam do zmiany stanu na InAir i IdleState");
             if (isGrounded && player.CurrentVelocity.y < 0.01f)
             {
                 Debug.Log("Entering Idle State");

@@ -15,7 +15,6 @@ public class Player_JumpState : Player_AbilityState
     {
         base.EnterState();
         
-            Debug.Log("Ustawianie velocity skoku");
             player.InputHandler.UseJumpInput();
             player.SetVelocityY(playerData.jumpVelocity);
             isAbilityDone = true;

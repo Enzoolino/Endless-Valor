@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class EnemyMoveState : EnemyState
+public class Enemy_MoveState : EnemyState
 {
-    protected D_EnemyMoveState stateData;
+    protected D_Enemy_MoveState stateData;
 
     protected bool isDetectingWall;
     protected bool isDetectingLedge;
     protected bool isPlayerInCloseAggroRange;
     
-    public EnemyMoveState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_EnemyMoveState stateData) : base(enemy, enemyStateMachine, animationBoolName)
+    public Enemy_MoveState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_MoveState stateData) : base(enemy, enemyStateMachine, animationBoolName)
     {
         this.stateData = stateData;
     }

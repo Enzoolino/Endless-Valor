@@ -12,7 +12,6 @@ public class Player_WallJumpState : Player_AbilityState
     public override void EnterState()
     {
         base.EnterState();
-        Debug.Log("Entered Wall Jump State");
         
         // Debugging: Check the initial velocity
         Debug.Log("Initial Velocity: " + player.CurrentVelocity);

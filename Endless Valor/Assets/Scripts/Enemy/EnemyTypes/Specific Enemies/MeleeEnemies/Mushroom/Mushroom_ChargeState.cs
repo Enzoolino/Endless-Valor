@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mushroom_ChargeState : EnemyChargeState
+public class Mushroom_ChargeState : Enemy_ChargeState
 {
     private Mushroom enemy;
     
-    public Mushroom_ChargeState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_EnemyChargeState stateData, Mushroom enemySpecific) : base(enemy, enemyStateMachine, animationBoolName, stateData)
+    public Mushroom_ChargeState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_ChargeState stateData, Mushroom enemySpecific) : base(enemy, enemyStateMachine, animationBoolName, stateData)
     {
         this.enemy = enemySpecific;
     }
@@ -19,6 +19,8 @@ public class Mushroom_ChargeState : EnemyChargeState
     public override void ExitState()
     {
         base.ExitState();
+        
+        Debug.Log("Exiting charge state");
     }
 
     public override void LogicUpdate()
@@ -27,20 +29,24 @@ public class Mushroom_ChargeState : EnemyChargeState
 
         if (performCloseRangeAction)
         {
+            Debug.Log("Charge time not over and entering attack state");
             enemyStateMachine.ChangeState(enemy.MeleeAttackState);
         }
         else if (isDetectingLedge || isDetectingWall)
         {
+            Debug.Log("Charge time not over and entering look state");
             enemyStateMachine.ChangeState(enemy.LookForPlayerState);
         }
         else if (isChargeTimeOver)
         {
             if (isPlayerInCloseAggroRange)
             {
+                Debug.Log("Charge time over and entering detected state");
                 enemyStateMachine.ChangeState(enemy.PlayerDetectedState);
             }
             else
             {
+                Debug.Log("Charge time over and entering look state");
                 enemyStateMachine.ChangeState(enemy.LookForPlayerState);
             }
         }

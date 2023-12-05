@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStunState : EnemyState
+public class Enemy_StunState : EnemyState
 {
-    protected D_EnemyStunState stateData;
+    protected D_Enemy_StunState stateData;
 
     protected bool isStunTimeOver;
     protected bool isGrounded;
@@ -12,7 +12,7 @@ public class EnemyStunState : EnemyState
     protected bool performCloseRangeAction;
     protected bool isPlayerInCloseAggroRange;
     
-    public EnemyStunState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_EnemyStunState stateData) : base(enemy, enemyStateMachine, animationBoolName)
+    public Enemy_StunState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_StunState stateData) : base(enemy, enemyStateMachine, animationBoolName)
     {
         this.stateData = stateData;
     }

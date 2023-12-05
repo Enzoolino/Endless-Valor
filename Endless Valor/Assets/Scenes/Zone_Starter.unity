@@ -172,6 +172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 80df2cf297b2ac1428bbdddbb6950f42, type: 2}
+  isHurt: 0
+  isDead: 0
 --- !u!95 &16488998
 Animator:
   serializedVersion: 5
@@ -392,6 +394,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 17621141-57bc-4b8b-bd9b-08f9b22243bd
     m_ActionName: Gameplay/Jump[/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 16488996}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnPrimaryAttackInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 320de4c6-e848-409a-afc6-22f3ce263677
+    m_ActionName: Gameplay/Primary Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 16488996}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnSecondaryAttackInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c4956214-0521-4a9c-95ed-7e14ebad6411
+    m_ActionName: Gameplay/Secondary Attack[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -410,8 +444,8 @@ GameObject:
   - component: {fileID: 41947832}
   - component: {fileID: 41947836}
   - component: {fileID: 41947835}
-  - component: {fileID: 41947837}
   - component: {fileID: 41947838}
+  - component: {fileID: 41947839}
   m_Layer: 8
   m_Name: Mushroom
   m_TagString: Enemy
@@ -560,21 +594,6 @@ MonoBehaviour:
     m_Bits: 128
   isPlayerBeingSearched: 0
   detectPlayerTimer: 0
---- !u!114 &41947837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 41947831}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52ccdbe8eaf543f4d9fadeb95bef120e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectionEmote: {fileID: 7547248545302725651, guid: 0ee466099c378ae4199f23f62df15aad, type: 3}
-  lostTargetEmote: {fileID: 1234841430034888750, guid: d388e4dd6d84a7045957a0210ef2faf9, type: 3}
-  emotePosition: {fileID: 782234597}
 --- !u!114 &41947838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,6 +615,21 @@ MonoBehaviour:
   meleeAttackStateData: {fileID: 11400000, guid: 6434b3966c93ece42997a5bebb88615f, type: 2}
   stunStateData: {fileID: 11400000, guid: f786b7d9abef69f4d8ef0e72c514de18, type: 2}
   meleeAttackPosition: {fileID: 49836753}
+--- !u!114 &41947839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41947831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52ccdbe8eaf543f4d9fadeb95bef120e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionEmote: {fileID: 7547248545302725651, guid: 0ee466099c378ae4199f23f62df15aad, type: 3}
+  lostTargetEmote: {fileID: 1234841430034888750, guid: d388e4dd6d84a7045957a0210ef2faf9, type: 3}
+  emotePosition: {fileID: 782234597}
 --- !u!1 &49836752
 GameObject:
   m_ObjectHideFlags: 0

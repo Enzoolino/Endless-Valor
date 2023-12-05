@@ -32,6 +32,9 @@ public class EnemyState
     public virtual void LogicUpdate()
     {
         
+            
+        
+        
     }
 
     public virtual void PhysicsUpdate()

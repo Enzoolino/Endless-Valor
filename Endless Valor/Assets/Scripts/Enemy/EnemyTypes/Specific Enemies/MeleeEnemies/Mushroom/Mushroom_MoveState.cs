@@ -1,9 +1,9 @@
 
-public class Mushroom_MoveState : EnemyMoveState
+public class Mushroom_MoveState : Enemy_MoveState
 {
     private Mushroom enemy;
     
-    public Mushroom_MoveState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_EnemyMoveState stateData, Mushroom enemySpecific) : base(enemy, enemyStateMachine, animationBoolName, stateData)
+    public Mushroom_MoveState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_MoveState stateData, Mushroom enemySpecific) : base(enemy, enemyStateMachine, animationBoolName, stateData)
     {
         this.enemy = enemySpecific;
     }

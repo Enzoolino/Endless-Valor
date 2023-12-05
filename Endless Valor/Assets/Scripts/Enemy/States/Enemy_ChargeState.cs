@@ -1,9 +1,9 @@
 
 using UnityEngine;
 
-public class EnemyChargeState : EnemyState
+public class Enemy_ChargeState : EnemyState
 {
-    protected D_EnemyChargeState stateData;
+    protected D_Enemy_ChargeState stateData;
 
     protected bool isPlayerInCloseAggroRange;
     protected bool isDetectingLedge;
@@ -11,7 +11,7 @@ public class EnemyChargeState : EnemyState
     protected bool isChargeTimeOver;
     protected bool performCloseRangeAction;
     
-    public EnemyChargeState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_EnemyChargeState stateData) : base(enemy, enemyStateMachine, animationBoolName)
+    public Enemy_ChargeState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_ChargeState stateData) : base(enemy, enemyStateMachine, animationBoolName)
     {
         this.stateData = stateData;
     }
@@ -21,6 +21,8 @@ public class EnemyChargeState : EnemyState
         base.EnterState();
         isChargeTimeOver = false;
         enemy.SetVelocity(stateData.chargeSpeed);
+        
+        Debug.Log("Entering Charge State");
     }
 
     public override void ExitState()

@@ -1,17 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mushroom_LookForPlayerState : LookForPlayerState
+public class Mushroom_LookForPlayerState : Enemy_LookForPlayerState
 {
     private Mushroom enemy;
     
-    public Mushroom_LookForPlayerState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_LookForPlayerState stateData, Mushroom specificEnemy) : base(enemy, enemyStateMachine, animationBoolName, stateData)
+    public Mushroom_LookForPlayerState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_LookForPlayerState stateData, Mushroom specificEnemy, EnemyEmotesHandler emotesHandler) : base(enemy, enemyStateMachine, animationBoolName, stateData, emotesHandler)
     {
         this.enemy = specificEnemy;
     }
-
-
+    
     public override void EnterState()
     {
         base.EnterState();
@@ -30,7 +30,7 @@ public class Mushroom_LookForPlayerState : LookForPlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-
+        
         if (isPlayerInCloseAggroRange)
         {
             enemyStateMachine.ChangeState(enemy.PlayerDetectedState);

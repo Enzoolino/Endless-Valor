@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttackState : EnemyState
+public class Enemy_AttackState : EnemyState
 {
     protected Transform attackPosition;
 
     protected bool isAnimationFinished;
     protected bool isPlayerInCloseAggroRange;
     
-    public EnemyAttackState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, Transform attackPosition) : base(enemy, enemyStateMachine, animationBoolName)
+    public Enemy_AttackState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, Transform attackPosition) : base(enemy, enemyStateMachine, animationBoolName)
     {
         this.attackPosition = attackPosition;
     }

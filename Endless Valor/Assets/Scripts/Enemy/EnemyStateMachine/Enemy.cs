@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour
     private float lastDamageTime;
 
     protected bool isStunned;
+    [HideInInspector] public bool isHurt; //Trigger hurt state
+    [HideInInspector] public bool isDead; //Trigger dead state
     
     public virtual void Start()
     {
@@ -114,18 +116,18 @@ public class Enemy : MonoBehaviour
             boxCollider2D.bounds.extents.x + enemyData.closeRangeActionDistance, enemyData.playerLayerMask, Color.cyan,
             Color.red, false, true);
     }
-
+    
     public virtual void ResetStunResistance()
     {
         isStunned = false;
         currentStunResistance = enemyData.stunResistance;
     }
-
     
     public virtual void TakeDamage(AttackDetails attackDetails)
     {
         lastDamageTime = Time.time;
         currentHealth -= attackDetails.damageAmount;
+        Mathf.Clamp(currentHealth, 0, enemyData.maxHealth);
         currentStunResistance -= attackDetails.stunDamageAmount;
 
         if (attackDetails.position.x > EnemyVisual.transform.position.x)
@@ -137,9 +139,20 @@ public class Enemy : MonoBehaviour
             LastDamageDirection = 1;
         }
 
-        if (currentStunResistance <= 0)
+        /*if (currentStunResistance <= 0)
         {
             isStunned = true;
+        }*/
+
+        if (currentHealth > 0)
+        {
+            Debug.Log("Enemy is hurt !");
+            isHurt = true;
+        }
+        else if (currentHealth <= 0)
+        {
+            Debug.Log("Enemy is dead !");
+            isDead = true;
         }
     }
     

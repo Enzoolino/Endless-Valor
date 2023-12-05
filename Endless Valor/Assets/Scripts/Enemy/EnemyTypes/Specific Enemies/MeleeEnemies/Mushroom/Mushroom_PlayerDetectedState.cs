@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mushroom_PlayerDetectedState : PlayerDetectedState
+public class Mushroom_PlayerDetectedState : Enemy_PlayerDetectedState
 {
     private Mushroom enemy;
     
-    public Mushroom_PlayerDetectedState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_PlayerDetectedState stateData, Mushroom specificEnemy) : base(enemy, enemyStateMachine, animationBoolName, stateData)
+    public Mushroom_PlayerDetectedState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_PlayerDetectedState stateData, Mushroom specificEnemy, EnemyEmotesHandler emotesHandler) : base(enemy, enemyStateMachine, animationBoolName, stateData, emotesHandler)
     {
         this.enemy = specificEnemy;
     }
@@ -14,6 +14,9 @@ public class Mushroom_PlayerDetectedState : PlayerDetectedState
     public override void EnterState()
     {
         base.EnterState();
+
+        if (enemyStateMachine.PreviousState == enemy.LookForPlayerState)
+            wasLookingForPlayer = true;
     }
 
     public override void ExitState()
@@ -37,6 +40,7 @@ public class Mushroom_PlayerDetectedState : PlayerDetectedState
         {
             enemyStateMachine.ChangeState(enemy.LookForPlayerState);
         }
+        
     }
 
     public override void PhysicsUpdate()

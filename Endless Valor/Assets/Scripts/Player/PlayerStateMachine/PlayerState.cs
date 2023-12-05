@@ -40,6 +40,18 @@ public class PlayerState
 
     public virtual void LogicUpdate()
     {
+        //Interrupt every action when player is hurt
+        if (player.isDead)
+        {
+            Debug.Log("Entering Player Dead State");
+            playerStateMachine.ChangeState(player.DeadState);
+        }
+        else if (player.isHurt)
+        {
+            Debug.Log("Entering Player Hurt State");
+            playerStateMachine.ChangeState(player.HurtState);
+        }
+            
         
     }
 

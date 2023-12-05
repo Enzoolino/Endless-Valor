@@ -18,6 +18,10 @@ public class Player : MonoBehaviour
     public Player_WallGrabState WallGrabState { get; private set; }
     public Player_WallJumpState WallJumpState { get; private set; }
     public Player_LedgeClimbState LedgeClimbState { get; private set; }
+    public Player_PrimaryAttackState PrimaryAttackState { get; private set; }
+    public Player_SecondaryAttackState SecondaryAttackState { get; private set; }
+    public Player_HurtState HurtState { get; private set; }
+    public Player_DeadState DeadState { get; private set; }
     
     [SerializeField] private D_Player playerData;
 
@@ -39,6 +43,18 @@ public class Player : MonoBehaviour
     
     private Vector2 velocityHolder;
 
+    private float currentHealth;
+
+    [HideInInspector] public bool isHurt; //Trigger Hurt State
+    [HideInInspector] public bool isDead; //Trigger Dead State
+    
+    #endregion
+    
+    #region Transforms
+
+    public Transform primaryAttackArea;
+    public Transform secondaryAttackArea;
+    
     #endregion
 
     #region Unity Callback Functions
@@ -56,17 +72,22 @@ public class Player : MonoBehaviour
         WallGrabState = new Player_WallGrabState(this, StateMachine, playerData, "isHanging");
         WallJumpState = new Player_WallJumpState(this, StateMachine, playerData, "isInAir");
         LedgeClimbState = new Player_LedgeClimbState(this, StateMachine, playerData, "isInLedgeClimbState");
+        PrimaryAttackState = new Player_PrimaryAttackState(this, StateMachine, playerData, "isAttackingPrimary");
+        SecondaryAttackState = new Player_SecondaryAttackState(this, StateMachine, playerData, "isAttackingSecondary");
+        HurtState = new Player_HurtState(this, StateMachine, playerData, "isHurt");
+        DeadState = new Player_DeadState(this, StateMachine, playerData, "isDead");
 
     }
 
     private void Start()
     {
+        currentHealth = playerData.maxHealth;
+        FacingDirection = 1;
+        
         Anim = GetComponent<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
         RB = GetComponent<Rigidbody2D>();
         PlayerCollider = GetComponent<BoxCollider2D>();
-
-        FacingDirection = 1;
         
         StateMachine.Initialize(IdleState);
     }
@@ -189,6 +210,24 @@ public class Player : MonoBehaviour
     {
         FacingDirection *= -1;
         transform.Rotate(0.0f, 180.0f, 0.0f);
+    }
+
+    public void TakeDamage(AttackDetails attackDetails)
+    {
+        currentHealth -= attackDetails.damageAmount;
+        Mathf.Clamp(currentHealth, 0, playerData.maxHealth);
+
+        if (currentHealth > 0)
+        {
+            Debug.Log("Player is hurt bool set to true !");
+            isHurt = true;
+        }
+        else if (currentHealth <= 0)
+        {
+            Debug.Log("Player is dead bool set to true !");
+            isDead = true;
+        }
+        
     }
 
     #endregion

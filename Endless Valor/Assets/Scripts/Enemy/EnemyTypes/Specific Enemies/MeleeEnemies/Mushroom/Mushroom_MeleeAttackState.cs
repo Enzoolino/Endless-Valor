@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mushroom_MeleeAttackState : EnemyMeleeAttackState
+public class Mushroom_MeleeAttackState : Enemy_MeleeAttackState
 {
     protected Mushroom enemy;
     
-    public Mushroom_MeleeAttackState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, Transform attackPosition, D_EnemyMeleeAttackState stateData, Mushroom enemySpecific) : base(enemy, enemyStateMachine, animationBoolName, attackPosition, stateData)
+    public Mushroom_MeleeAttackState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, Transform attackPosition, D_Enemy_MeleeAttackState stateData, Mushroom enemySpecific) : base(enemy, enemyStateMachine, animationBoolName, attackPosition, stateData)
     {
         this.enemy = enemySpecific;
     }
@@ -14,11 +14,13 @@ public class Mushroom_MeleeAttackState : EnemyMeleeAttackState
     public override void EnterState()
     {
         base.EnterState();
+        Debug.Log("Entering Attack State");
     }
 
     public override void ExitState()
     {
         base.ExitState();
+        Debug.Log("Exiting Attack State");
     }
 
     public override void LogicUpdate()
@@ -27,6 +29,7 @@ public class Mushroom_MeleeAttackState : EnemyMeleeAttackState
 
         if (isAnimationFinished)
         {
+            Debug.Log("Attack Anim Finished");
             if (isPlayerInCloseAggroRange)
             {
                 enemyStateMachine.ChangeState(enemy.PlayerDetectedState);

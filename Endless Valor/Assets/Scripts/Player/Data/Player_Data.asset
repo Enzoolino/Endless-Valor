@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3381d1e9b22dc1a4ab7d6382a8cf4f98, type: 3}
   m_Name: Player_Data
   m_EditorClassIdentifier: 
+  maxHealth: 100
   movementSpeed: 4
   jumpVelocity: 6
   amountOfJumps: 1
@@ -27,6 +28,10 @@ MonoBehaviour:
   ledgeJumpForce: 7
   startOffset: {x: 0, y: 0.5}
   stopOffset: {x: 0, y: 0}
+  primaryAttackPoint: {x: 0.6164784, y: 0}
+  primaryAttackScale: {x: 0, y: 0}
+  primaryAttackRadius: 0.5
+  primaryAttackDamage: 25
   groundCheckRange: 0.05
   wallCheckRange: 0.15
   groundLayerMask:
@@ -35,3 +40,6 @@ MonoBehaviour:
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 1024
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 256

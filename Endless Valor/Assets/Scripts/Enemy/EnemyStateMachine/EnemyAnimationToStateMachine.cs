@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAnimationToStateMachine : MonoBehaviour
 {
-    public EnemyAttackState attackState;
+    public Enemy_AttackState attackState;
 
     private void TriggerAttack()
     {

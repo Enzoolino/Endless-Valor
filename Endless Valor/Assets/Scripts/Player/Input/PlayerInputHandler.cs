@@ -4,22 +4,29 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
 {
+    //Movement properties
     public Vector2 RawMovementInput { get; private set; }
     public int NormalizedInputX { get; private set; }
     public int NormalizedInputY { get; private set; }
+    
+    //Jump properties
     public bool JumpInput { get; private set; }
     public bool JumpInputStop { get; private set; }
 
     [SerializeField] private float inputHoldTime = 0.2f;
 
     private float jumpInputStartTime;
+    
+    //Attack properties
+    public bool PrimaryAttackInput { get; private set; }
+    public bool SecondaryAttackInput { get; private set; }
 
 
     private void Update()
     {
         CheckJumpInputHoldTime();
     }
-
+    
     public void OnMoveInput(InputAction.CallbackContext context)
     {
             RawMovementInput = context.ReadValue<Vector2>();
@@ -54,4 +61,24 @@ public class PlayerInputHandler : MonoBehaviour
             JumpInput = false;
         }
     }
+    
+    public void OnPrimaryAttackInput(InputAction.CallbackContext context)
+    {
+        if (context.started && !PrimaryAttackInput)
+        {
+            PrimaryAttackInput = true;
+        }
+    }
+
+    public void UsePrimaryAttackInput() => PrimaryAttackInput = false;
+    
+    public void OnSecondaryAttackInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            SecondaryAttackInput = true;
+        }
+    }
+
+    public void UseSecondaryAttackInput() => SecondaryAttackInput = false;
 }

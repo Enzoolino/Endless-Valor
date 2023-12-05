@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mushroom_IdleState : EnemyIdleState
+public class Mushroom_IdleState : Enemy_IdleState
 {
     private Mushroom enemy;
     
-    public Mushroom_IdleState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_EnemyIdleState stateData, Mushroom enemySpecific) : base(enemy, enemyStateMachine, animationBoolName, stateData)
+    public Mushroom_IdleState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_IdleState stateData, Mushroom enemySpecific) : base(enemy, enemyStateMachine, animationBoolName, stateData)
     {
         this.enemy = enemySpecific;
     }

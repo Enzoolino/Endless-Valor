@@ -4,6 +4,9 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "newPlayerData", menuName = "Data/Player Data/Base Data")]
 public class D_Player : ScriptableObject
 {
+    [Header("General")] 
+    public float maxHealth = 100.0f;
+    
     [Header("Move State")] 
     public float movementSpeed = 4.0f;
 
@@ -32,7 +35,9 @@ public class D_Player : ScriptableObject
     public float ledgeJumpForce = 7.0f;
     public Vector2 startOffset;
     public Vector2 stopOffset;
-    
+
+    [Header("Primary Attack State")] 
+    public float primaryAttackDamage = 25.0f;
     
     [Header("Check Variables")] 
     public float groundCheckRange = 0.05f;
@@ -41,6 +46,7 @@ public class D_Player : ScriptableObject
     [Header("Layer Masks")] 
     public LayerMask groundLayerMask;
     public LayerMask wallLayerMask;
-    
+    public LayerMask enemyLayerMask;
+
 
 }

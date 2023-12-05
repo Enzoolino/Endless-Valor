@@ -1,9 +1,9 @@
 
 using UnityEngine;
 
-public class EnemyIdleState : EnemyState
+public class Enemy_IdleState : EnemyState
 {
-    protected D_EnemyIdleState stateData;
+    protected D_Enemy_IdleState stateData;
     
     protected bool flipAfterIdle;
     protected bool isIdleTimeOver;
@@ -11,7 +11,7 @@ public class EnemyIdleState : EnemyState
     
     protected float idleTime;
     
-    public EnemyIdleState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_EnemyIdleState stateData) : base(enemy, enemyStateMachine, animationBoolName)
+    public Enemy_IdleState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_IdleState stateData) : base(enemy, enemyStateMachine, animationBoolName)
     {
         this.stateData = stateData;
     }

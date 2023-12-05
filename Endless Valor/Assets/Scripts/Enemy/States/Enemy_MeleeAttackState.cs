@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMeleeAttackState : EnemyAttackState
+public class Enemy_MeleeAttackState : Enemy_AttackState
 {
-    protected D_EnemyMeleeAttackState stateData;
+    protected D_Enemy_MeleeAttackState stateData;
 
     protected AttackDetails attackDetails;
 
-    public EnemyMeleeAttackState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, Transform attackPosition, D_EnemyMeleeAttackState stateData) : base(enemy, enemyStateMachine, animationBoolName, attackPosition)
+    public Enemy_MeleeAttackState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, Transform attackPosition, D_Enemy_MeleeAttackState stateData) : base(enemy, enemyStateMachine, animationBoolName, attackPosition)
     {
         this.stateData = stateData;
     }
