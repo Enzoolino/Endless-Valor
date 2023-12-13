@@ -11,6 +11,8 @@ public class Enemy_PlayerDetectedState : EnemyState
     protected bool performCloseRangeAction;
     protected bool performLongRangeAction;
 
+    protected bool isDetectingLedge;
+
     protected bool wasLookingForPlayer; // Instantly perform long range action if this is true
     
     public Enemy_PlayerDetectedState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_PlayerDetectedState stateData, EnemyEmotesHandler emotesHandler) : base(enemy, enemyStateMachine, animationBoolName)
@@ -25,8 +27,11 @@ public class Enemy_PlayerDetectedState : EnemyState
         base.EnterState();
         
         // Handle emote
-        emotesHandler.SetEmoteVisibility(true);
-        emotesHandler.PlayerDetectedEmoteHandler(); 
+        if (!performCloseRangeAction) //Disable emote showing when enemy is attacking to avoid showing emote during attack cooldown
+        {
+            emotesHandler.SetEmoteVisibility(true);
+            emotesHandler.HandleEmote(EmoteTypes.PlayerDetectedEmote);
+        }
         
         performLongRangeAction = false;
         
@@ -37,7 +42,7 @@ public class Enemy_PlayerDetectedState : EnemyState
     {
         base.ExitState();
         emotesHandler.SetEmoteVisibility(false);
-        emotesHandler.PlayerDetectedEmoteHandler(); //Handle emote
+        emotesHandler.HandleEmote(EmoteTypes.PlayerDetectedEmote); //Handle emote
     }
 
     public override void LogicUpdate()
@@ -64,5 +69,7 @@ public class Enemy_PlayerDetectedState : EnemyState
         isPlayerInCloseAggroRange = enemy.CheckPlayerInCloseAggroRange();
         isPlayerInFarAggroRange = enemy.CheckPlayerInFarAggroRange();
         performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
+
+        isDetectingLedge = enemy.CheckLedge();
     }
 }

@@ -1,18 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Mushroom_DeadState : MonoBehaviour
+public class Mushroom_DeadState : Enemy_DeadState
 {
-    // Start is called before the first frame update
-    void Start()
+    private Mushroom enemy;
+    
+    public Mushroom_DeadState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_DeadState stateData, Mushroom enemySpecific) : base(enemy, enemyStateMachine, animationBoolName, stateData)
     {
+        this.enemy = enemySpecific;
+    }
+
+    public override void EnterState()
+    {
+        base.EnterState();
+    }
+
+    public override void ExitState()
+    {
+        base.ExitState();
+    }
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void PhysicsUpdate()
     {
-        
+        base.PhysicsUpdate();
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
+    }
+
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+
+        //TODO: Add instance of special modifier
+        if (Player.Instance != null)
+            Player.Instance.MovementSpeed.Add(1.0f);
     }
 }

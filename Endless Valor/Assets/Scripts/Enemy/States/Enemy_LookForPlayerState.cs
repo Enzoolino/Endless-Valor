@@ -29,7 +29,7 @@ public class Enemy_LookForPlayerState : EnemyState
         base.EnterState();
         
         emotesHandler.SetEmoteVisibility(true);
-        emotesHandler.LookForPlayerEmoteHandler(); // Handle emote
+        emotesHandler.HandleEmote(EmoteTypes.LookForPlayerEmote); // Handle emote
         
         isAllTurnsDone = false;
         isAllTurnsTimeDone = false;
@@ -45,7 +45,7 @@ public class Enemy_LookForPlayerState : EnemyState
     {
         base.ExitState();
         emotesHandler.SetEmoteVisibility(false);
-        emotesHandler.LookForPlayerEmoteHandler(); // Handle emote
+        emotesHandler.HandleEmote(EmoteTypes.LookForPlayerEmote); // Handle emote
         
         Debug.Log("Exiting LookForPlayer State");
     }

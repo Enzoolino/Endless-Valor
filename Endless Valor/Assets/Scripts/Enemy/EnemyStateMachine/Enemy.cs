@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    //[HideInInspector] public GameObject player; //Instance is needed for some special case initialization like giving stats on death
+    
     public D_Enemy enemyData;
+    
     public int FacingDirection { get; private set; } = 1;
     public int LastDamageDirection { get; private set; }
     public GameObject EnemyVisual { get; set; }
@@ -29,7 +33,6 @@ public class Enemy : MonoBehaviour
         currentStunResistance = enemyData.stunResistance;
         FacingDirection = 1;
         
-        
         EnemyVisual = GameObject.Find(gameObject.name + " - Visual");
         rb = transform.GetComponent<Rigidbody2D>();
         boxCollider2D = transform.GetComponent<BoxCollider2D>();
@@ -53,7 +56,12 @@ public class Enemy : MonoBehaviour
     {
         StateMachine.CurrentState.PhysicsUpdate();
     }
-    
+
+    public virtual void OnDestroy()
+    {
+        StateMachine.CurrentState.OnDestroy();
+    }
+
     public virtual void SetVelocity(float velocity)
     {
         velocityHolder.Set(FacingDirection * velocity, rb.velocity.y);
@@ -139,12 +147,11 @@ public class Enemy : MonoBehaviour
             LastDamageDirection = 1;
         }
 
-        /*if (currentStunResistance <= 0)
+        if (currentStunResistance <= 0)
         {
             isStunned = true;
-        }*/
-
-        if (currentHealth > 0)
+        }
+        else if (currentHealth > 0)
         {
             Debug.Log("Enemy is hurt !");
             isHurt = true;
@@ -155,6 +162,11 @@ public class Enemy : MonoBehaviour
             isDead = true;
         }
     }
+
+    public void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger(); // Must be public for eatsm
+
+    public void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger(); // Must be public for eatsm
+    
     
     public virtual void Flip()
     {
@@ -176,5 +188,10 @@ public class Enemy : MonoBehaviour
             Debug.DrawRay(origin, direction * range, rayColor);
         }
         return compareOption;
+    }
+
+    public void DestroyEnemyObject(float delay)
+    {
+        Destroy(gameObject, delay);
     }
 }

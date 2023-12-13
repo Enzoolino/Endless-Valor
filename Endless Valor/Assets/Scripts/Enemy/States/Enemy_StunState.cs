@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy_StunState : EnemyState
 {
     protected D_Enemy_StunState stateData;
+    protected EnemyEmotesHandler emotesHandler;
 
     protected bool isStunTimeOver;
     protected bool isGrounded;
@@ -12,24 +13,32 @@ public class Enemy_StunState : EnemyState
     protected bool performCloseRangeAction;
     protected bool isPlayerInCloseAggroRange;
     
-    public Enemy_StunState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_StunState stateData) : base(enemy, enemyStateMachine, animationBoolName)
+    public Enemy_StunState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_StunState stateData, EnemyEmotesHandler emotesHandler) : base(enemy, enemyStateMachine, animationBoolName)
     {
         this.stateData = stateData;
+        this.emotesHandler = emotesHandler;
     }
 
 
     public override void EnterState()
     {
         base.EnterState();
+        
+        emotesHandler.SetEmoteVisibility(true);
+        emotesHandler.HandleEmote(EmoteTypes.StunEmote);
 
         isStunTimeOver = false;
         isMovementStopped = false;
+        
         enemy.SetVelocity(stateData.stunKnockbackSpeed, stateData.stunKnockbackAngle, enemy.LastDamageDirection);
     }
 
     public override void ExitState()
     {
         base.ExitState();
+        
+        emotesHandler.SetEmoteVisibility(false);
+        emotesHandler.HandleEmote(EmoteTypes.StunEmote);
         
         enemy.ResetStunResistance();
     }

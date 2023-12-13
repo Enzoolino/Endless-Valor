@@ -5,9 +5,10 @@ using UnityEngine;
 public class Enemy_AttackState : EnemyState
 {
     protected Transform attackPosition;
-
     protected bool isAnimationFinished;
     protected bool isPlayerInCloseAggroRange;
+    [HideInInspector] public bool isAttackOnCooldown;
+    
     
     public Enemy_AttackState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, Transform attackPosition) : base(enemy, enemyStateMachine, animationBoolName)
     {
@@ -53,5 +54,6 @@ public class Enemy_AttackState : EnemyState
     public virtual void FinishAttack()
     {
         isAnimationFinished = true;
+        isAttackOnCooldown = true;
     }
 }

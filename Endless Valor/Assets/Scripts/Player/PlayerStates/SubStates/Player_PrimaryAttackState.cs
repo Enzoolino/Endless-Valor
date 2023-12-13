@@ -14,6 +14,7 @@ public class Player_PrimaryAttackState : Player_AbilityState
         base.EnterState();
         
         attackDetails.damageAmount = playerData.primaryAttackDamage;
+        attackDetails.stunDamageAmount = playerData.primaryAttackStunDamage;
         attackDetails.position = player.primaryAttackArea.position;
         attackDetails.scale = player.primaryAttackArea.localScale;
     }

@@ -8,7 +8,9 @@ public class D_Player : ScriptableObject
     public float maxHealth = 100.0f;
     
     [Header("Move State")] 
-    public float movementSpeed = 4.0f;
+    public float baseMovementSpeed = 4.0f;
+    public float maximumMovementSpeed = 20.0f;
+    public float triggerEffectMovementSpeed = 10.0f;
 
     [Header("Jump State")] 
     public float jumpVelocity = 6.0f;
@@ -38,6 +40,7 @@ public class D_Player : ScriptableObject
 
     [Header("Primary Attack State")] 
     public float primaryAttackDamage = 25.0f;
+    public float primaryAttackStunDamage = 1.0f;
     
     [Header("Check Variables")] 
     public float groundCheckRange = 0.05f;

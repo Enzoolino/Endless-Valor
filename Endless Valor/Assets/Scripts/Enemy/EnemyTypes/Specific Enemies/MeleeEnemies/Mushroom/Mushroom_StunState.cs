@@ -4,7 +4,7 @@ public class Mushroom_StunState : Enemy_StunState
 {
     private Mushroom enemy;
     
-    public Mushroom_StunState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_StunState stateData, Mushroom enemySpecific) : base(enemy, enemyStateMachine, animationBoolName, stateData)
+    public Mushroom_StunState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_StunState stateData, Mushroom enemySpecific, EnemyEmotesHandler emotesHandler) : base(enemy, enemyStateMachine, animationBoolName, stateData, emotesHandler)
     {
         this.enemy = enemySpecific;
     }

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Enemy_MeleeAttackState : Enemy_AttackState
 {
     protected D_Enemy_MeleeAttackState stateData;
-
     protected AttackDetails attackDetails;
+    protected float attackCooldownTimer;
 
     public Enemy_MeleeAttackState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, Transform attackPosition, D_Enemy_MeleeAttackState stateData) : base(enemy, enemyStateMachine, animationBoolName, attackPosition)
     {
@@ -29,6 +29,10 @@ public class Enemy_MeleeAttackState : Enemy_AttackState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        attackCooldownTimer -= Time.deltaTime;
+        if (attackCooldownTimer <= 0)
+            isAttackOnCooldown = false;
     }
 
     public override void PhysicsUpdate()
@@ -44,7 +48,7 @@ public class Enemy_MeleeAttackState : Enemy_AttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
-
+        
         Collider2D[] detectedObjects =
             Physics2D.OverlapCircleAll(attackPosition.position, stateData.attackRadius, stateData.playerLayerMask);
 
@@ -57,5 +61,7 @@ public class Enemy_MeleeAttackState : Enemy_AttackState
     public override void FinishAttack()
     {
         base.FinishAttack();
+        
+        attackCooldownTimer = stateData.attackCooldown;
     }
 }

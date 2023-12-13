@@ -12,6 +12,11 @@ public class Mushroom : MeleeEnemy
     public Mushroom_LookForPlayerState LookForPlayerState { get; private set; }
     public Mushroom_MeleeAttackState MeleeAttackState { get; private set; }
     public Mushroom_StunState StunState { get; private set; }
+    public Mushroom_HurtState HurtState { get; private set; }
+    public Mushroom_DeadState DeadState { get; private set; }
+    
+    
+    
     public EnemyEmotesHandler EmotesHandler { get; set; }
 
 
@@ -22,6 +27,8 @@ public class Mushroom : MeleeEnemy
     [SerializeField] private D_Enemy_LookForPlayerState lookForPlayerStateData;
     [SerializeField] private D_Enemy_MeleeAttackState meleeAttackStateData;
     [SerializeField] private D_Enemy_StunState stunStateData;
+    [SerializeField] private D_Enemy_HurtState hurtStateData;
+    [SerializeField] private D_Enemy_DeadState deadStateData;
 
     [SerializeField] private Transform meleeAttackPosition;
 
@@ -36,7 +43,9 @@ public class Mushroom : MeleeEnemy
         ChargeState = new Mushroom_ChargeState(this, StateMachine, "isCharging", chargeStateData, this);
         LookForPlayerState = new Mushroom_LookForPlayerState(this, StateMachine, "isLookingForPlayer", lookForPlayerStateData, this, EmotesHandler);
         MeleeAttackState = new Mushroom_MeleeAttackState(this, StateMachine, "isAttackingNormal", meleeAttackPosition, meleeAttackStateData, this);
-        StunState = new Mushroom_StunState(this, StateMachine, "isStunned", stunStateData, this);
+        StunState = new Mushroom_StunState(this, StateMachine, "isStunned", stunStateData, this, EmotesHandler);
+        HurtState = new Mushroom_HurtState(this, StateMachine, "isHurt", hurtStateData, this);
+        DeadState = new Mushroom_DeadState(this, StateMachine, "isDead", deadStateData, this);
         
         StateMachine.Initialize(MoveState);
     }
@@ -44,6 +53,15 @@ public class Mushroom : MeleeEnemy
     public override void TakeDamage(AttackDetails attackDetails)
     {
         base.TakeDamage(attackDetails);
+
+        if (isDead)
+        {
+            StateMachine.ChangeState(DeadState);
+        }
+        else if (isHurt)
+        {
+            StateMachine.ChangeState(HurtState);
+        }
 
         if (isStunned && StateMachine.CurrentState != StunState)
         {

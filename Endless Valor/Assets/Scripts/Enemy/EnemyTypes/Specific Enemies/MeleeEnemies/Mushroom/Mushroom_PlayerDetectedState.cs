@@ -27,12 +27,12 @@ public class Mushroom_PlayerDetectedState : Enemy_PlayerDetectedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (performCloseRangeAction)
+        // Cooldown is here because the enemy transfers to this state when on cooldown
+        if (performCloseRangeAction && !enemy.MeleeAttackState.isAttackOnCooldown) 
         {
             enemyStateMachine.ChangeState(enemy.MeleeAttackState);
         }
-        else if (performLongRangeAction)
+        else if (performLongRangeAction && !isDetectingLedge)
         {
             enemyStateMachine.ChangeState(enemy.ChargeState);
         }

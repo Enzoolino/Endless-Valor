@@ -14,6 +14,9 @@ public class Enemy_DeadState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
+        enemy.rb.bodyType = RigidbodyType2D.Static;
+        enemy.boxCollider2D.enabled = false;
+        enemy.DestroyEnemyObject(stateData.deathDelay);
     }
 
     public override void ExitState()

@@ -5,6 +5,8 @@ public class EnemyState
     protected Enemy enemy;
     protected EnemyStateMachine enemyStateMachine;
 
+    protected bool isAnimationFinished;
+    
     protected float startTime;
 
     protected string animationBoolName;
@@ -19,9 +21,10 @@ public class EnemyState
 
     public virtual void EnterState()
     {
-        startTime = Time.time;
-        enemy.animator.SetBool(animationBoolName, true);
         DoChecks();
+        enemy.animator.SetBool(animationBoolName, true);
+        startTime = Time.time;
+        isAnimationFinished = false;
     }
     
     public virtual void ExitState()
@@ -32,9 +35,6 @@ public class EnemyState
     public virtual void LogicUpdate()
     {
         
-            
-        
-        
     }
 
     public virtual void PhysicsUpdate()
@@ -43,6 +43,21 @@ public class EnemyState
     }
 
     public virtual void DoChecks()
+    {
+        
+    }
+
+    public virtual void AnimationTrigger()
+    {
+        
+    }
+
+    public virtual void AnimationFinishTrigger()
+    {
+        isAnimationFinished = true;
+    }
+
+    public virtual void OnDestroy()
     {
         
     }

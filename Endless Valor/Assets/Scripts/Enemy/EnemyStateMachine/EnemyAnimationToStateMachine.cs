@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,12 @@ using UnityEngine;
 public class EnemyAnimationToStateMachine : MonoBehaviour
 {
     public Enemy_AttackState attackState;
+    public Enemy enemy;
+
+    private void Start()
+    {
+        enemy = GetComponentInParent<Enemy>();
+    }
 
     private void TriggerAttack()
     {
@@ -15,4 +22,15 @@ public class EnemyAnimationToStateMachine : MonoBehaviour
     {
         attackState.FinishAttack();
     }
+
+    private void TriggerAction()
+    {
+        enemy.AnimationTrigger();
+    }
+
+    private void FinishAction()
+    {
+        enemy.AnimationFinishTrigger();
+    }
+    
 }

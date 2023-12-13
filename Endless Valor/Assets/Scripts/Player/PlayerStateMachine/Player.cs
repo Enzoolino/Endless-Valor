@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance;
     
     #region State Variables
 
@@ -24,6 +25,13 @@ public class Player : MonoBehaviour
     public Player_DeadState DeadState { get; private set; }
     
     [SerializeField] private D_Player playerData;
+
+    #endregion
+
+    #region Stats Variables
+
+    public Stat_MovementSpeed MovementSpeed { get; private set; }
+    public float currentMovementSpeed => MovementSpeed.CurrentValue;
 
     #endregion
     
@@ -61,6 +69,9 @@ public class Player : MonoBehaviour
     
     private void Awake()
     {
+        Instance = this;
+        
+        //STATES
         StateMachine = new PlayerStateMachine();
         
         IdleState = new Player_IdleState(this, StateMachine, playerData, "isIdle");
@@ -76,6 +87,10 @@ public class Player : MonoBehaviour
         SecondaryAttackState = new Player_SecondaryAttackState(this, StateMachine, playerData, "isAttackingSecondary");
         HurtState = new Player_HurtState(this, StateMachine, playerData, "isHurt");
         DeadState = new Player_DeadState(this, StateMachine, playerData, "isDead");
+        
+        //STATS
+        MovementSpeed = new Stat_MovementSpeed(playerData.baseMovementSpeed, playerData.maximumMovementSpeed, 
+            playerData.triggerEffectMovementSpeed);
 
     }
 

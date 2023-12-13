@@ -70,7 +70,7 @@ public class Player_InAirState : PlayerState
             if (Time.time >= disableMovingAfterLedgeJumpTime + playerData.timeToEnableMovingAfterLedgeJump)
             {
                 player.CheckIfShouldFlip(xInput);
-                player.SetVelocityX(playerData.movementSpeed * xInput);
+                player.SetVelocityX(player.currentMovementSpeed * xInput);
             }
             
             player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);

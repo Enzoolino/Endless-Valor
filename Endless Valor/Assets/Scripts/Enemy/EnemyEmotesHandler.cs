@@ -4,31 +4,33 @@ using UnityEngine;
 
 public class EnemyEmotesHandler : MonoBehaviour
 {
-    [SerializeField] private GameObject detectionEmote;
-    [SerializeField] private GameObject lostTargetEmote;
+    [SerializeField] private GameObject playerDetectedEmote;
+    [SerializeField] private GameObject lookForPlayerEmote;
+    [SerializeField] private GameObject stunEmote;
     [SerializeField] private Transform emotePosition;
     
     private GameObject instantiatedEmote;
     
     private bool isEmoteVisible;
-    
-    public void LookForPlayerEmoteHandler()
+
+
+    public void HandleEmote(EmoteTypes emoteType)
     {
         OverwriteEmote();
-        SpawnEmote(lostTargetEmote);
 
-        if (!isEmoteVisible)
+        switch (emoteType)
         {
-            Destroy(instantiatedEmote);
+            case EmoteTypes.PlayerDetectedEmote:
+                SpawnEmote(playerDetectedEmote);
+                break;
+            case EmoteTypes.LookForPlayerEmote:
+                SpawnEmote(lookForPlayerEmote);
+                break;
+            case EmoteTypes.StunEmote:
+                SpawnEmote(stunEmote);
+                break;
         }
         
-    }
-
-    public void PlayerDetectedEmoteHandler()
-    {
-        OverwriteEmote();
-        SpawnEmote(detectionEmote);
-
         if (!isEmoteVisible)
         {
             Destroy(instantiatedEmote);
@@ -51,6 +53,11 @@ public class EnemyEmotesHandler : MonoBehaviour
             Destroy(instantiatedEmote);
         }
     }
+}
 
-    
+public enum EmoteTypes
+{
+    LookForPlayerEmote,
+    PlayerDetectedEmote,
+    StunEmote
 }
