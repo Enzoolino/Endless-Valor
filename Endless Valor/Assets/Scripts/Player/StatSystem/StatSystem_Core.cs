@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -11,12 +8,18 @@ public class StatSystem_Core
     public float MaximumValue { get; protected set; }
     public float TriggerEffectValue { get; protected set; }
 
+    protected Player player; //Get singleton instance of player
+    
+    
     public StatSystem_Core(float baseValue, float maximumValue, float triggerEffectValue)
     {
+        player = Player.Instance;
+        
         BaseValue = baseValue;
         CurrentValue = baseValue;
         MaximumValue = maximumValue;
         TriggerEffectValue = triggerEffectValue;
+        
     }
     
     public void Add(float modifier)
@@ -43,7 +46,19 @@ public class StatSystem_Core
         CurrentValue /= divider;
     }
 
-    public virtual void TriggerEffect()
+    public virtual bool CheckIfTriggerEffect()
+    {
+        if (CurrentValue >= TriggerEffectValue)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public virtual void EnableTriggerEffect()
     {
         
     }

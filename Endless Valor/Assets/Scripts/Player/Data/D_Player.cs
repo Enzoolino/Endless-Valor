@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "newPlayerData", menuName = "Data/Player Data/Base Data")]
 public class D_Player : ScriptableObject
@@ -10,6 +9,7 @@ public class D_Player : ScriptableObject
     [Header("Move State")] 
     public float baseMovementSpeed = 4.0f;
     public float maximumMovementSpeed = 20.0f;
+    public float acceleration = 0.5f;
     public float triggerEffectMovementSpeed = 10.0f;
 
     [Header("Jump State")] 

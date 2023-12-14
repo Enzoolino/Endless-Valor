@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_MoveState : Player_GroundedState
 {
+   
+    private bool effectTriggerCheck;
+    
     public Player_MoveState(Player player, PlayerStateMachine playerStateMachine, D_Player playerData, string animationBoolName) : base(player, playerStateMachine, playerData, animationBoolName)
     {
         
@@ -12,19 +13,33 @@ public class Player_MoveState : Player_GroundedState
     public override void EnterState()
     {
         base.EnterState();
+
+        player.movementSpeedWorkspace = playerData.baseMovementSpeed;
     }
 
     public override void ExitState()
     {
         base.ExitState();
+        
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        if (effectTriggerCheck)
+        {
+            player.MovementSpeed.EnableTriggerEffect();
+        }
         
         player.CheckIfShouldFlip(xInput);
-        player.SetVelocityX(player.currentMovementSpeed * xInput);
+
+        if (player.movementSpeedWorkspace < player.currentMovementSpeed)
+        {
+            player.movementSpeedWorkspace += playerData.acceleration * Time.deltaTime;
+        }
+        
+        player.SetVelocityX(player.movementSpeedWorkspace * xInput);
 
         
         if (xInput == 0 && !isExitingState)
@@ -41,5 +56,6 @@ public class Player_MoveState : Player_GroundedState
     public override void DoChecks()
     {
         base.DoChecks();
+        effectTriggerCheck = player.MovementSpeed.CheckIfTriggerEffect();
     }
 }

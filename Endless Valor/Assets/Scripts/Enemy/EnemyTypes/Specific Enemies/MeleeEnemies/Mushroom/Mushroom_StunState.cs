@@ -23,7 +23,8 @@ public class Mushroom_StunState : Enemy_StunState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
+        
+        
         if (isStunTimeOver)
         {
             if (performCloseRangeAction)

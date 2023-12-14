@@ -19,7 +19,7 @@ public class Enemy_AttackState : EnemyState
     {
         base.EnterState();
 
-        enemy.eatsm.attackState = this;
+        enemy.Eatsm.attackState = this;
         isAnimationFinished = false;
         enemy.SetVelocity(0f);
     }

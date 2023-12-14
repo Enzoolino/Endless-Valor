@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_InAirState : PlayerState
@@ -14,6 +12,8 @@ public class Player_InAirState : PlayerState
 
     public float grabLedgeStopTime;
     public float disableMovingAfterLedgeJumpTime;
+    
+    private bool effectTriggerCheck;
 
     
     
@@ -40,6 +40,11 @@ public class Player_InAirState : PlayerState
         jumpInputStop = player.InputHandler.JumpInputStop;
         
         CheckJumpMultiplier();
+        
+        if (effectTriggerCheck)
+        {
+            player.MovementSpeed.EnableTriggerEffect();
+        }
         
         if (isGrounded && player.CurrentVelocity.y < 0.01f)
         {
@@ -70,7 +75,7 @@ public class Player_InAirState : PlayerState
             if (Time.time >= disableMovingAfterLedgeJumpTime + playerData.timeToEnableMovingAfterLedgeJump)
             {
                 player.CheckIfShouldFlip(xInput);
-                player.SetVelocityX(player.currentMovementSpeed * xInput);
+                player.SetVelocityX(player.movementSpeedWorkspace * xInput);
             }
             
             player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
@@ -95,6 +100,8 @@ public class Player_InAirState : PlayerState
         {
             player.LedgeClimbState.SetDetectedPosition(player.transform.position);
         }
+        
+        effectTriggerCheck = player.MovementSpeed.CheckIfTriggerEffect();
     }
 
     private void CheckJumpMultiplier()

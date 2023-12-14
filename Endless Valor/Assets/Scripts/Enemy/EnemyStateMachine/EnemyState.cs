@@ -10,6 +10,8 @@ public class EnemyState
     protected float startTime;
 
     protected string animationBoolName;
+    
+    protected Player player = Player.Instance;
 
     public EnemyState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName)
     {
@@ -22,14 +24,14 @@ public class EnemyState
     public virtual void EnterState()
     {
         DoChecks();
-        enemy.animator.SetBool(animationBoolName, true);
+        enemy.Anim.SetBool(animationBoolName, true);
         startTime = Time.time;
         isAnimationFinished = false;
     }
     
     public virtual void ExitState()
     {
-        enemy.animator.SetBool(animationBoolName, false);
+        enemy.Anim.SetBool(animationBoolName, false);
     }
 
     public virtual void LogicUpdate()

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -30,15 +27,25 @@ public class Player : MonoBehaviour
 
     #region Stats Variables
 
+    public enum AvailableStats
+    {
+        MovementSpeed,
+        JumpHeight,
+    };
+    
+    //Instances of all stats
     public Stat_MovementSpeed MovementSpeed { get; private set; }
     public float currentMovementSpeed => MovementSpeed.CurrentValue;
-
+    
+    public float movementSpeedWorkspace;
+    
     #endregion
     
     #region Components
     
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
+    // ReSharper disable once InconsistentNaming
     public Rigidbody2D RB { get; private set; }
     public BoxCollider2D PlayerCollider { get; private set; }
     
@@ -72,8 +79,10 @@ public class Player : MonoBehaviour
         Instance = this;
         
         //STATES
+        //Initialize StateMachine
         StateMachine = new PlayerStateMachine();
         
+        //Initialize the states
         IdleState = new Player_IdleState(this, StateMachine, playerData, "isIdle");
         MoveState = new Player_MoveState(this, StateMachine, playerData, "isMoving");
         JumpState = new Player_JumpState(this, StateMachine, playerData, "isInAir");
@@ -89,9 +98,10 @@ public class Player : MonoBehaviour
         DeadState = new Player_DeadState(this, StateMachine, playerData, "isDead");
         
         //STATS
+        //Initialize the statistics
         MovementSpeed = new Stat_MovementSpeed(playerData.baseMovementSpeed, playerData.maximumMovementSpeed, 
             playerData.triggerEffectMovementSpeed);
-
+        
     }
 
     private void Start()
@@ -151,6 +161,8 @@ public class Player : MonoBehaviour
         RB.velocity = velocityHolder;
         CurrentVelocity = velocityHolder;
     }
+    
+    //public void SetVelocityXDecrease(float decrease, )
 
     #endregion
 
@@ -244,6 +256,19 @@ public class Player : MonoBehaviour
         }
         
     }
+
+    //Used to operate with enum system
+    public void AcquireStat(StatSystem_Core stat, float value)
+    {
+        stat.Add(value);
+    }
+
+    public void LoseStat(StatSystem_Core stat, float value)
+    {
+        stat.Subtract(value);
+    }
+    
+    
 
     #endregion
     

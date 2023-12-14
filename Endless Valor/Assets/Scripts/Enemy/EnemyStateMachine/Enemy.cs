@@ -3,18 +3,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    //[HideInInspector] public GameObject player; //Instance is needed for some special case initialization like giving stats on death
-    
     public D_Enemy enemyData;
-    
     public int FacingDirection { get; private set; } = 1;
     public int LastDamageDirection { get; private set; }
-    public GameObject EnemyVisual { get; set; }
-    public Rigidbody2D rb { get; private set; }
-    public Animator animator { get; private set; }
+    public GameObject EnemyVisual { get; private set; }
+    public Rigidbody2D Rb { get; private set; }
+    public Animator Anim { get; private set; }
     public BoxCollider2D boxCollider2D { get; private set; }
-    public EnemyStateMachine StateMachine { get; set; }
-    public EnemyAnimationToStateMachine eatsm { get; private set; }
+    public EnemyStateMachine StateMachine { get; private set; }
+    public EnemyAnimationToStateMachine Eatsm { get; private set; }
 
 
     private Vector2 velocityHolder;
@@ -34,10 +31,10 @@ public class Enemy : MonoBehaviour
         FacingDirection = 1;
         
         EnemyVisual = GameObject.Find(gameObject.name + " - Visual");
-        rb = transform.GetComponent<Rigidbody2D>();
+        Rb = transform.GetComponent<Rigidbody2D>();
         boxCollider2D = transform.GetComponent<BoxCollider2D>();
-        animator = EnemyVisual.transform.GetComponent<Animator>();
-        eatsm = EnemyVisual.transform.GetComponent<EnemyAnimationToStateMachine>();
+        Anim = EnemyVisual.transform.GetComponent<Animator>();
+        Eatsm = EnemyVisual.transform.GetComponent<EnemyAnimationToStateMachine>();
         
         StateMachine = new EnemyStateMachine();
     }
@@ -64,15 +61,15 @@ public class Enemy : MonoBehaviour
 
     public virtual void SetVelocity(float velocity)
     {
-        velocityHolder.Set(FacingDirection * velocity, rb.velocity.y);
-        rb.velocity = velocityHolder;
+        velocityHolder.Set(FacingDirection * velocity, Rb.velocity.y);
+        Rb.velocity = velocityHolder;
     }
 
     public virtual void SetVelocity(float velocity, Vector2 angle, int direction)
     {
         angle.Normalize();
         velocityHolder.Set(angle.x * velocity * direction, angle.y * velocity);
-        rb.velocity = velocityHolder;
+        Rb.velocity = velocityHolder;
     }
 
     public virtual bool CheckWall()
@@ -146,12 +143,8 @@ public class Enemy : MonoBehaviour
         {
             LastDamageDirection = 1;
         }
-
-        if (currentStunResistance <= 0)
-        {
-            isStunned = true;
-        }
-        else if (currentHealth > 0)
+        
+        if (currentHealth > 0)
         {
             Debug.Log("Enemy is hurt !");
             isHurt = true;
@@ -160,6 +153,11 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Enemy is dead !");
             isDead = true;
+        }
+        
+        if (currentStunResistance <= 0)
+        {
+            isStunned = true;
         }
     }
 

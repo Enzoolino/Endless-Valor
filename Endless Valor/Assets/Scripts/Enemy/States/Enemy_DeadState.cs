@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy_DeadState : EnemyState
 {
-    private D_Enemy_DeadState stateData;
+    protected D_Enemy_DeadState stateData;
     
     public Enemy_DeadState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_DeadState stateData) : base(enemy, enemyStateMachine, animationBoolName)
     {
@@ -14,7 +14,7 @@ public class Enemy_DeadState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
-        enemy.rb.bodyType = RigidbodyType2D.Static;
+        enemy.Rb.bodyType = RigidbodyType2D.Static;
         enemy.boxCollider2D.enabled = false;
         enemy.DestroyEnemyObject(stateData.deathDelay);
     }
@@ -37,5 +37,26 @@ public class Enemy_DeadState : EnemyState
     public override void DoChecks()
     {
         base.DoChecks();
+    }
+
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+        
+        //TODO: Change to trigger on death, not on destroy
+        
+        if (player != null)
+        {
+            StatSystem_Core transferredStatToGive = null;
+
+            switch (stateData.statToGive)
+            {
+                case Player.AvailableStats.MovementSpeed:
+                    transferredStatToGive = player.MovementSpeed;
+                    break;
+            }
+            
+            player.AcquireStat(transferredStatToGive, stateData.statValueToGive);
+        }
     }
 }

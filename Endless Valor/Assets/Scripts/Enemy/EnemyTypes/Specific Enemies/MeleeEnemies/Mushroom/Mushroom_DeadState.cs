@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
 
 public class Mushroom_DeadState : Enemy_DeadState
 {
@@ -41,9 +37,5 @@ public class Mushroom_DeadState : Enemy_DeadState
     public override void OnDestroy()
     {
         base.OnDestroy();
-
-        //TODO: Add instance of special modifier
-        if (Player.Instance != null)
-            Player.Instance.MovementSpeed.Add(1.0f);
     }
 }
