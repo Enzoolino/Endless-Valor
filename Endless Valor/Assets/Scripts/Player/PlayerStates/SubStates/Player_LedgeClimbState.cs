@@ -54,7 +54,7 @@ public class Player_LedgeClimbState : PlayerState
         if (isAnimationFinished)
         {
             player.SetVelocityZero();
-            player.RB.AddForce(new Vector2(0f, playerData.ledgeJumpForce), ForceMode2D.Impulse);
+            player.Rb.AddForce(new Vector2(0f, playerData.ledgeJumpForce), ForceMode2D.Impulse);
             player.InAirState.disableMovingAfterLedgeJumpTime = Time.time;
             player.InAirState.grabLedgeStopTime = Time.time;
             playerStateMachine.ChangeState(player.InAirState);

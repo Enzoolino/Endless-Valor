@@ -21,7 +21,6 @@ public class Enemy_ChargeState : EnemyState
         base.EnterState();
         isChargeTimeOver = false;
         enemy.SetVelocity(stateData.chargeSpeed);
-        
         Debug.Log("Entering Charge State");
     }
 

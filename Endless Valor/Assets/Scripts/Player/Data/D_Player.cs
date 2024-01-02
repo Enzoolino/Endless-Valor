@@ -13,7 +13,9 @@ public class D_Player : ScriptableObject
     public float triggerEffectMovementSpeed = 10.0f;
 
     [Header("Jump State")] 
-    public float jumpVelocity = 6.0f;
+    public float baseJumpHeight = 6.0f;
+    public float maximumJumpHeight = 15.0f;
+    public float triggerEffectJumpHeight = 10.0f;
     public int amountOfJumps = 1;
 
     [Header("In Air State")] 

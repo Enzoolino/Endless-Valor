@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Mushroom_DeadStateData
   m_EditorClassIdentifier: 
   deathDelay: 5
+  statToGive: 0
+  statValueToGive: 5

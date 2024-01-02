@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class StatSystem_Core
 {
     public float BaseValue { get; protected set; }

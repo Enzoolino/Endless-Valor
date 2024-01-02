@@ -6,7 +6,7 @@ public class Enemy_MeleeAttackState : Enemy_AttackState
 {
     protected D_Enemy_MeleeAttackState stateData;
     protected AttackDetails attackDetails;
-    protected float attackCooldownTimer;
+    public float attackCooldownTimer;
 
     public Enemy_MeleeAttackState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, Transform attackPosition, D_Enemy_MeleeAttackState stateData) : base(enemy, enemyStateMachine, animationBoolName, attackPosition)
     {
@@ -30,9 +30,9 @@ public class Enemy_MeleeAttackState : Enemy_AttackState
     {
         base.LogicUpdate();
 
-        attackCooldownTimer -= Time.deltaTime;
-        if (attackCooldownTimer <= 0)
-            isAttackOnCooldown = false;
+        //attackCooldownTimer -= Time.deltaTime; //TODO: To chyba nic tutaj nie robi ?
+        /*if (attackCooldownTimer <= 0)
+            isAttackOnCooldown = false;*/
     }
 
     public override void PhysicsUpdate()

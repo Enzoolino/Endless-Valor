@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Player_Data
   m_EditorClassIdentifier: 
   maxHealth: 100
-  movementSpeed: 4
+  baseMovementSpeed: 4
+  maximumMovementSpeed: 20
+  acceleration: 0.5
+  triggerEffectMovementSpeed: 7
   jumpVelocity: 6
   amountOfJumps: 1
   jumpHeightMultiplier: 0.5
@@ -28,10 +31,8 @@ MonoBehaviour:
   ledgeJumpForce: 7
   startOffset: {x: 0, y: 0.5}
   stopOffset: {x: 0, y: 0}
-  primaryAttackPoint: {x: 0.6164784, y: 0}
-  primaryAttackScale: {x: 0, y: 0}
-  primaryAttackRadius: 0.5
   primaryAttackDamage: 25
+  primaryAttackStunDamage: 1
   groundCheckRange: 0.05
   wallCheckRange: 0.15
   groundLayerMask:

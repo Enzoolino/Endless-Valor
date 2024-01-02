@@ -16,7 +16,7 @@ public class Player_WallGrabState : Player_TouchingWallState
     public override void EnterState()
     {
         base.EnterState();
-        player.RB.gravityScale = 0f;
+        player.Rb.gravityScale = 0f;
         player.SetVelocityZero();
         DecreaseAmountOfGrabsLeft();
     }
@@ -24,7 +24,7 @@ public class Player_WallGrabState : Player_TouchingWallState
     public override void ExitState()
     {
         base.ExitState();
-        player.RB.gravityScale = 1f;
+        player.Rb.gravityScale = 1f;
     }
 
     public override void LogicUpdate()

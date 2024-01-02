@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -12,11 +11,12 @@ public class Enemy : MonoBehaviour
     public BoxCollider2D boxCollider2D { get; private set; }
     public EnemyStateMachine StateMachine { get; private set; }
     public EnemyAnimationToStateMachine Eatsm { get; private set; }
+    public Vector3 InitialPosition { get; private set; }
 
-
+    
     private Vector2 velocityHolder;
     
-    private float currentHealth;
+    protected float currentHealth;
     private float currentStunResistance;
     private float lastDamageTime;
 
@@ -24,17 +24,19 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public bool isHurt; //Trigger hurt state
     [HideInInspector] public bool isDead; //Trigger dead state
     
+    
     public virtual void Start()
     {
         currentHealth = enemyData.maxHealth;
         currentStunResistance = enemyData.stunResistance;
         FacingDirection = 1;
-        
-        EnemyVisual = GameObject.Find(gameObject.name + " - Visual");
+
+        EnemyVisual = transform.GetChild(0).gameObject; //GameObject.Find(gameObject.name + " - Visual");
         Rb = transform.GetComponent<Rigidbody2D>();
         boxCollider2D = transform.GetComponent<BoxCollider2D>();
         Anim = EnemyVisual.transform.GetComponent<Animator>();
         Eatsm = EnemyVisual.transform.GetComponent<EnemyAnimationToStateMachine>();
+        InitialPosition = transform.position;
         
         StateMachine = new EnemyStateMachine();
     }
@@ -121,6 +123,11 @@ public class Enemy : MonoBehaviour
             boxCollider2D.bounds.extents.x + enemyData.closeRangeActionDistance, enemyData.playerLayerMask, Color.cyan,
             Color.red, false, true);
     }
+
+    public virtual bool CheckIfAtInitialPosition()
+    {
+        return InitialPosition == transform.position;
+    }
     
     public virtual void ResetStunResistance()
     {
@@ -170,7 +177,24 @@ public class Enemy : MonoBehaviour
     {
         FacingDirection *= -1;
         EnemyVisual.transform.Rotate(0f, 180f, 0f);
-        
+    }
+
+    public virtual void CalculatedFlip(float towards)
+    {
+        if (transform.position.x > towards)
+        {
+            if (FacingDirection == 1)
+                EnemyVisual.transform.Rotate(0f, 180f, 0f);
+            
+            FacingDirection = -1;
+        }
+        else if (transform.position.x < towards)
+        {
+            if (FacingDirection == -1)
+                EnemyVisual.transform.Rotate(0f, 180f, 0f);
+            
+            FacingDirection = 1;
+        }
     }
 
     private bool RaycastingHandler(Vector2 origin, Vector2 direction, float range, int layerMaskToDetect, Color positiveDetectionRayColor, Color negativeDetectionRayColor, bool isReturnConditionEqualNull, bool raycastVisible)
@@ -187,7 +211,7 @@ public class Enemy : MonoBehaviour
         }
         return compareOption;
     }
-
+    
     public void DestroyEnemyObject(float delay)
     {
         Destroy(gameObject, delay);

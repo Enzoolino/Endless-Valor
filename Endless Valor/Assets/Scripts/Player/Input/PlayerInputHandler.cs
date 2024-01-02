@@ -34,7 +34,7 @@ public class PlayerInputHandler : MonoBehaviour
             NormalizedInputX = Mathf.RoundToInt(RawMovementInput.x);
             NormalizedInputY = Mathf.RoundToInt(RawMovementInput.y);
             
-            Debug.Log(NormalizedInputY);
+            //Debug.Log(NormalizedInputY); -- Check if vertical input works correctly
     }
 
     public void OnJumpInput(InputAction.CallbackContext context)

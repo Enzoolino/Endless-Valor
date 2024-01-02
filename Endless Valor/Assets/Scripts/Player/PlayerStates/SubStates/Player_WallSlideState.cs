@@ -14,7 +14,7 @@ public class Player_WallSlideState : Player_TouchingWallState
 
         if (!isExitingState)
         {
-            player.RB.gravityScale = 0f;
+            player.Rb.gravityScale = 0f;
             player.SetVelocityY(-playerData.slideSpeed);
         }
         
@@ -23,7 +23,7 @@ public class Player_WallSlideState : Player_TouchingWallState
     public override void ExitState()
     {
         base.ExitState();
-        player.RB.gravityScale = 1f;
+        player.Rb.gravityScale = 1f;
     }
 
     public override void LogicUpdate()

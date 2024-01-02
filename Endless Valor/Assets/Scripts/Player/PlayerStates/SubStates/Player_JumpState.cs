@@ -16,12 +16,14 @@ public class Player_JumpState : Player_AbilityState
         base.EnterState();
         
             player.InputHandler.UseJumpInput();
-            player.SetVelocityY(playerData.jumpVelocity);
+            player.SetVelocityY(player.currentJumpHeight);
             isAbilityDone = true;
             amountOfJumpsLeft--;
             player.InAirState.SetIsJumping();
     }
 
+    
+    //Created for double jumping -- Not yet implemented
     public bool CanJump()
     {
         return amountOfJumpsLeft > 0;

@@ -33,11 +33,17 @@ public class Player : MonoBehaviour
         JumpHeight,
     };
     
-    //Instances of all stats
+    //Movement Speed
     public Stat_MovementSpeed MovementSpeed { get; private set; }
     public float currentMovementSpeed => MovementSpeed.CurrentValue;
     
     public float movementSpeedWorkspace;
+    
+    //Jump Height
+    public Stat_JumpHeight JumpHeight { get; private set; }
+    public float currentJumpHeight => JumpHeight.CurrentValue;
+    
+    public float jumpHeightWorkspace;
     
     #endregion
     
@@ -45,8 +51,7 @@ public class Player : MonoBehaviour
     
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
-    // ReSharper disable once InconsistentNaming
-    public Rigidbody2D RB { get; private set; }
+    public Rigidbody2D Rb { get; private set; }
     public BoxCollider2D PlayerCollider { get; private set; }
     
     #endregion
@@ -69,6 +74,7 @@ public class Player : MonoBehaviour
 
     public Transform primaryAttackArea;
     public Transform secondaryAttackArea;
+    public Transform enemyOrientedOffsetPosition;
     
     #endregion
 
@@ -101,7 +107,9 @@ public class Player : MonoBehaviour
         //Initialize the statistics
         MovementSpeed = new Stat_MovementSpeed(playerData.baseMovementSpeed, playerData.maximumMovementSpeed, 
             playerData.triggerEffectMovementSpeed);
-        
+        JumpHeight = new Stat_JumpHeight(playerData.baseJumpHeight, playerData.maximumJumpHeight,
+            playerData.triggerEffectJumpHeight);
+
     }
 
     private void Start()
@@ -111,7 +119,7 @@ public class Player : MonoBehaviour
         
         Anim = GetComponent<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
-        RB = GetComponent<Rigidbody2D>();
+        Rb = GetComponent<Rigidbody2D>();
         PlayerCollider = GetComponent<BoxCollider2D>();
         
         StateMachine.Initialize(IdleState);
@@ -119,7 +127,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        CurrentVelocity = RB.velocity;
+        CurrentVelocity = Rb.velocity;
         StateMachine.CurrentState.LogicUpdate();
     }
 
@@ -136,7 +144,7 @@ public class Player : MonoBehaviour
 
     public void SetVelocityZero()
     {
-        RB.velocity = Vector2.zero;
+        Rb.velocity = Vector2.zero;
         CurrentVelocity = Vector2.zero;
     }
     
@@ -144,26 +152,25 @@ public class Player : MonoBehaviour
     {
         angle.Normalize();
         velocityHolder.Set(angle.x * velocity * direction, angle.y * velocity);
-        RB.velocity = velocityHolder;
+        Rb.velocity = velocityHolder;
         CurrentVelocity = velocityHolder;
     }
     
     public void SetVelocityX(float velocity)
     {
         velocityHolder.Set(velocity, CurrentVelocity.y);
-        RB.velocity = velocityHolder;
+        Rb.velocity = velocityHolder;
         CurrentVelocity = velocityHolder;
     }
 
     public void SetVelocityY(float velocity)
     {
         velocityHolder.Set(CurrentVelocity.x, velocity);
-        RB.velocity = velocityHolder;
+        Rb.velocity = velocityHolder;
         CurrentVelocity = velocityHolder;
     }
     
-    //public void SetVelocityXDecrease(float decrease, )
-
+    
     #endregion
 
     #region Check Functions
@@ -268,8 +275,6 @@ public class Player : MonoBehaviour
         stat.Subtract(value);
     }
     
-    
-
     #endregion
     
 }

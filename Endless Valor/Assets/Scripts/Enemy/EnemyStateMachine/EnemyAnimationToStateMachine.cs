@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyAnimationToStateMachine : MonoBehaviour
 {
     public Enemy_AttackState attackState;
-    public Enemy enemy;
+    private Enemy enemy;
 
     private void Start()
     {

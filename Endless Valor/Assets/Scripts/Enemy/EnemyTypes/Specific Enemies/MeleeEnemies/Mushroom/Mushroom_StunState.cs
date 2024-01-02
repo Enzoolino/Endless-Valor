@@ -1,5 +1,4 @@
 
-
 public class Mushroom_StunState : Enemy_StunState
 {
     private Mushroom enemy;

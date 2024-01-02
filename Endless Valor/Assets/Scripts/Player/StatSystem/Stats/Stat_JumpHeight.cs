@@ -9,7 +9,15 @@ public class Stat_JumpHeight : StatSystem_Core
     public override void EnableTriggerEffect()
     {
         base.EnableTriggerEffect();
-        
+
+        //For now stat is dependant only on fall damage. Special effect can be added here.
+        if (player != null)
+        {
+            if (player.jumpHeightWorkspace >= TriggerEffectValue)
+            {
+                
+            }
+        }
         
     }
 }

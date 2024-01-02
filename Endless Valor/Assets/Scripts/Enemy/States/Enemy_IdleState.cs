@@ -8,6 +8,7 @@ public class Enemy_IdleState : EnemyState
     protected bool flipAfterIdle;
     protected bool isIdleTimeOver;
     protected bool isPlayerInCloseAggroRange;
+    protected bool isAtInitialPosition;
     
     protected float idleTime;
     
@@ -54,6 +55,7 @@ public class Enemy_IdleState : EnemyState
     {
         base.DoChecks();
         isPlayerInCloseAggroRange = enemy.CheckPlayerInCloseAggroRange();
+        isAtInitialPosition = enemy.CheckIfAtInitialPosition();
     }
 
     public void SetFlipAfterIdle(bool flip)

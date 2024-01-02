@@ -1,7 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using Component = System.ComponentModel.Component;
 
 public class Mushroom : MeleeEnemy
 {
@@ -14,8 +11,6 @@ public class Mushroom : MeleeEnemy
     public Mushroom_StunState StunState { get; private set; }
     public Mushroom_HurtState HurtState { get; private set; }
     public Mushroom_DeadState DeadState { get; private set; }
-    
-    
     
     public EnemyEmotesHandler EmotesHandler { get; set; }
 
