@@ -14,8 +14,11 @@ public class Player_InAirState : PlayerState
     public float disableMovingAfterLedgeJumpTime;
     
     private bool effectTriggerCheck;
-
     
+    //Fall damage
+    private AttackDetails attackDetails;
+    private bool reachedFallDamageVelocity;
+    private float velocityWorkspace;
     
     public Player_InAirState(Player player, PlayerStateMachine playerStateMachine, D_Player playerData, string animationBoolName) : base(player, playerStateMachine, playerData, animationBoolName)
     {
@@ -46,8 +49,35 @@ public class Player_InAirState : PlayerState
             player.MovementSpeed.EnableTriggerEffect();
         }
         
+        if (player.CurrentVelocity.y <= -playerData.hugeFallDamageVelocity)
+        {
+            velocityWorkspace = playerData.hugeFallDamageVelocity;
+            reachedFallDamageVelocity = true;
+        }
+        else if (player.CurrentVelocity.y <= -playerData.mediumFallDamageVelocity)
+        {
+            velocityWorkspace = playerData.mediumFallDamageVelocity;
+            reachedFallDamageVelocity = true;
+        }
+        else if (player.CurrentVelocity.y <= -playerData.smallFallDamageVelocity)
+        {
+            velocityWorkspace = playerData.smallFallDamageVelocity;
+            reachedFallDamageVelocity = true;
+        }
+        
         if (isGrounded && player.CurrentVelocity.y < 0.01f)
         {
+            if (reachedFallDamageVelocity)
+            {
+                attackDetails.damageAmount = Mathf.Round(velocityWorkspace * 3);
+                player.TakeDamage(attackDetails);
+                
+                Debug.Log($"Player got fall damage : {attackDetails.damageAmount}");
+                
+                reachedFallDamageVelocity = false;
+                velocityWorkspace = 0.0f;
+            }
+            
             playerStateMachine.ChangeState(player.LandState);
         }
         else if (isTouchingWall && !isTouchingLedge && Time.time >= grabLedgeStopTime + playerData.grabLedgeDelayTime)

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -35,15 +36,15 @@ public class Player : MonoBehaviour
     
     //Movement Speed
     public Stat_MovementSpeed MovementSpeed { get; private set; }
-    public float currentMovementSpeed => MovementSpeed.CurrentValue;
+    public float currentMovementSpeed => MovementSpeed.CurrentValue; //TODO: Change the naming as it's not current speed but current max acceleration speed
     
-    public float movementSpeedWorkspace;
+    [HideInInspector] public float movementSpeedWorkspace; //It's pretty much current speed of the player, acceleration is also calculated here 
     
     //Jump Height
     public Stat_JumpHeight JumpHeight { get; private set; }
     public float currentJumpHeight => JumpHeight.CurrentValue;
     
-    public float jumpHeightWorkspace;
+    [HideInInspector] public float jumpHeightWorkspace; //Unused for now - Will be used with effect
     
     #endregion
     
@@ -57,13 +58,13 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Other Variables
-
+    
     public Vector2 CurrentVelocity { get; private set; }
     public int FacingDirection { get; private set; }
     
     private Vector2 velocityHolder;
 
-    private float currentHealth;
+    [HideInInspector] public float currentHealth;
 
     [HideInInspector] public bool isHurt; //Trigger Hurt State
     [HideInInspector] public bool isDead; //Trigger Dead State

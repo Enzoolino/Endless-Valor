@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player_LandState : Player_GroundedState
 {
+    
+    
     public Player_LandState(Player player, PlayerStateMachine playerStateMachine, D_Player playerData, string animationBoolName) : base(player, playerStateMachine, playerData, animationBoolName)
     {
     }
@@ -11,6 +13,8 @@ public class Player_LandState : Player_GroundedState
     public override void EnterState()
     {
         base.EnterState();
+        
+        
     }
 
     public override void ExitState()

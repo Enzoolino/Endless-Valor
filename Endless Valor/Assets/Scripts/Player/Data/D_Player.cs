@@ -19,6 +19,9 @@ public class D_Player : ScriptableObject
     public int amountOfJumps = 1;
 
     [Header("In Air State")] 
+    public float smallFallDamageVelocity = 9.0f;
+    public float mediumFallDamageVelocity = 14.0f;
+    public float hugeFallDamageVelocity = 20.0f;
     public float jumpHeightMultiplier = 0.5f;
 
     [Header("Wall Grab State")] 

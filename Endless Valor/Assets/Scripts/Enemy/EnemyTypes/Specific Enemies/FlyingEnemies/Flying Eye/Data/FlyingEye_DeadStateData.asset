@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: FlyingEye_DeadStateData
   m_EditorClassIdentifier: 
   deathDelay: 5
-  statToGive: 0
-  statValueToGive: 1
+  statToGive: 1
+  statValueToGive: 10

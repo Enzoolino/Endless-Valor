@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3381d1e9b22dc1a4ab7d6382a8cf4f98, type: 3}
   m_Name: Player_Data
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 120
   baseMovementSpeed: 4
   maximumMovementSpeed: 20
   acceleration: 0.5
   triggerEffectMovementSpeed: 7
-  jumpVelocity: 6
+  baseJumpHeight: 6
+  maximumJumpHeight: 15
+  triggerEffectJumpHeight: 10
   amountOfJumps: 1
+  fallDamageVelocity: 9
   jumpHeightMultiplier: 0.5
   amountOfGrabs: 1
   timeToStartSliding: 1
