@@ -12,6 +12,8 @@ public class Player_GroundedState : PlayerState
 
     private bool primaryAttackInput;
 
+    private bool ladderClimbInput;
+
     
     public Player_GroundedState(Player player, PlayerStateMachine playerStateMachine, D_Player playerData, string animationBoolName) : base(player, playerStateMachine, playerData, animationBoolName)
     {
@@ -37,6 +39,7 @@ public class Player_GroundedState : PlayerState
         xInput = player.InputHandler.NormalizedInputX;
         jumpInput = player.InputHandler.JumpInput;
         primaryAttackInput = player.InputHandler.PrimaryAttackInput;
+        ladderClimbInput = player.InputHandler.LadderClimbInput;
 
         if (jumpInput && player.JumpState.CanJump())
         {
@@ -45,6 +48,10 @@ public class Player_GroundedState : PlayerState
         else if (primaryAttackInput)
         {
             playerStateMachine.ChangeState(player.PrimaryAttackState);
+        }
+        else if (ladderClimbInput && player.isNearLadder)
+        {
+            playerStateMachine.ChangeState(player.ClimbLadderState);
         }
         else if (!isGrounded)
         {

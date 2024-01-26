@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
     public Player_LedgeClimbState LedgeClimbState { get; private set; }
     public Player_PrimaryAttackState PrimaryAttackState { get; private set; }
     public Player_SecondaryAttackState SecondaryAttackState { get; private set; }
+    public Player_ClimbLadder ClimbLadderState { get; private set; }
     public Player_HurtState HurtState { get; private set; }
     public Player_DeadState DeadState { get; private set; }
     
@@ -68,6 +70,7 @@ public class Player : MonoBehaviour
 
     [HideInInspector] public bool isHurt; //Trigger Hurt State
     [HideInInspector] public bool isDead; //Trigger Dead State
+    [HideInInspector] public bool isNearLadder; //Check if ladder is near
     
     #endregion
     
@@ -101,6 +104,7 @@ public class Player : MonoBehaviour
         LedgeClimbState = new Player_LedgeClimbState(this, StateMachine, playerData, "isInLedgeClimbState");
         PrimaryAttackState = new Player_PrimaryAttackState(this, StateMachine, playerData, "isAttackingPrimary");
         SecondaryAttackState = new Player_SecondaryAttackState(this, StateMachine, playerData, "isAttackingSecondary");
+        ClimbLadderState = new Player_ClimbLadder(this, StateMachine, playerData, "isClimbingLadder");
         HurtState = new Player_HurtState(this, StateMachine, playerData, "isHurt");
         DeadState = new Player_DeadState(this, StateMachine, playerData, "isDead");
         
@@ -207,10 +211,10 @@ public class Player : MonoBehaviour
     public bool CheckIfTouchingLedge()
     {
         RaycastHit2D raycastHit = Physics2D.Raycast(new Vector2(PlayerCollider.bounds.center.x, PlayerCollider.bounds.max.y), transform.right,
-            PlayerCollider.bounds.extents.x + playerData.wallCheckRange, playerData.wallLayerMask);
+            PlayerCollider.bounds.extents.x + playerData.ledgeCheckRange, playerData.wallLayerMask);
         Color rayColor = (raycastHit.collider != null) ? Color.green : Color.red;
         
-        Debug.DrawRay(new Vector2(PlayerCollider.bounds.center.x, PlayerCollider.bounds.max.y), transform.right * (PlayerCollider.bounds.extents.x + playerData.wallCheckRange), rayColor);
+        Debug.DrawRay(new Vector2(PlayerCollider.bounds.center.x, PlayerCollider.bounds.max.y), transform.right * (PlayerCollider.bounds.extents.x + playerData.ledgeCheckRange), rayColor);
         return raycastHit.collider != null;
     }
 
@@ -257,7 +261,7 @@ public class Player : MonoBehaviour
             Debug.Log("Player is hurt bool set to true !");
             isHurt = true;
         }
-        else if (currentHealth <= 0)
+        else if (currentHealth <= 0 && !isDead)
         {
             Debug.Log("Player is dead bool set to true !");
             isDead = true;
@@ -275,6 +279,13 @@ public class Player : MonoBehaviour
     {
         stat.Subtract(value);
     }
+
+
+    public void InstaDead()
+    {
+        SceneManager.LoadScene(2);
+    }
+    
     
     #endregion
     

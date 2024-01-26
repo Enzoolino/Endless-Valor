@@ -21,7 +21,9 @@ MonoBehaviour:
   maximumJumpHeight: 15
   triggerEffectJumpHeight: 10
   amountOfJumps: 1
-  fallDamageVelocity: 9
+  smallFallDamageVelocity: 12
+  mediumFallDamageVelocity: 18
+  hugeFallDamageVelocity: 22
   jumpHeightMultiplier: 0.5
   amountOfGrabs: 1
   timeToStartSliding: 1
@@ -38,6 +40,7 @@ MonoBehaviour:
   primaryAttackStunDamage: 1
   groundCheckRange: 0.05
   wallCheckRange: 0.15
+  ledgeCheckRange: 0.2
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64

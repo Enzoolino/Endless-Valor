@@ -46,10 +46,17 @@ public class D_Player : ScriptableObject
     [Header("Primary Attack State")] 
     public float primaryAttackDamage = 25.0f;
     public float primaryAttackStunDamage = 1.0f;
+
+    [Header("Climb Ladder State")] 
+    public float climbLadderSpeed = 4.0f;
+
+    [Header("Dead State")] 
+    public float deathScreenDelay = 5.0f;
     
     [Header("Check Variables")] 
     public float groundCheckRange = 0.05f;
     public float wallCheckRange = 0.5f;
+    public float ledgeCheckRange = 0.7f;
 
     [Header("Layer Masks")] 
     public LayerMask groundLayerMask;

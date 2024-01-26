@@ -15,6 +15,8 @@ public class PlayerState
 
     private string animationBoolName;
 
+    private bool alreadyDied; //To mark the trigger of death state to not trigger it every frame
+
     public PlayerState(Player player, PlayerStateMachine playerStateMachine, D_Player playerData, string animationBoolName)
     {
         this.player = player;
@@ -41,9 +43,10 @@ public class PlayerState
     public virtual void LogicUpdate()
     {
         //Interrupt every action when player is hurt
-        if (player.isDead)
+        if (player.isDead && !alreadyDied)
         {
             Debug.Log("Entering Player Dead State");
+            alreadyDied = true;
             playerStateMachine.ChangeState(player.DeadState);
         }
         else if (player.isHurt)

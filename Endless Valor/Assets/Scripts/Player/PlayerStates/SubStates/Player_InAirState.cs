@@ -7,6 +7,7 @@ public class Player_InAirState : PlayerState
     private bool isTouchingWall;
     private bool jumpInput;
     private bool jumpInputStop;
+    private bool ladderClimbInput;
     private bool isJumping;
     private bool isTouchingLedge;
 
@@ -41,6 +42,8 @@ public class Player_InAirState : PlayerState
         xInput = player.InputHandler.NormalizedInputX;
         jumpInput = player.InputHandler.JumpInput;
         jumpInputStop = player.InputHandler.JumpInputStop;
+        ladderClimbInput = player.InputHandler.LadderClimbInput;
+        
         
         CheckJumpMultiplier();
         
@@ -48,23 +51,26 @@ public class Player_InAirState : PlayerState
         {
             player.MovementSpeed.EnableTriggerEffect();
         }
-        
-        if (player.CurrentVelocity.y <= -playerData.hugeFallDamageVelocity)
+
+        if (Time.time >= startTime + 1.0f) // Player must fall for at least 1 seconds to receive fall damage, counters some weird velocity bugs
         {
-            velocityWorkspace = playerData.hugeFallDamageVelocity;
-            reachedFallDamageVelocity = true;
+            if (player.CurrentVelocity.y <= -playerData.hugeFallDamageVelocity)
+            {
+                velocityWorkspace = playerData.hugeFallDamageVelocity;
+                reachedFallDamageVelocity = true;
+            }
+            else if (player.CurrentVelocity.y <= -playerData.mediumFallDamageVelocity)
+            {
+                velocityWorkspace = playerData.mediumFallDamageVelocity;
+                reachedFallDamageVelocity = true;
+            }
+            else if (player.CurrentVelocity.y <= -playerData.smallFallDamageVelocity)
+            {
+                velocityWorkspace = playerData.smallFallDamageVelocity;
+                reachedFallDamageVelocity = true;
+            }
         }
-        else if (player.CurrentVelocity.y <= -playerData.mediumFallDamageVelocity)
-        {
-            velocityWorkspace = playerData.mediumFallDamageVelocity;
-            reachedFallDamageVelocity = true;
-        }
-        else if (player.CurrentVelocity.y <= -playerData.smallFallDamageVelocity)
-        {
-            velocityWorkspace = playerData.smallFallDamageVelocity;
-            reachedFallDamageVelocity = true;
-        }
-        
+
         if (isGrounded && player.CurrentVelocity.y < 0.01f)
         {
             if (reachedFallDamageVelocity)
@@ -82,14 +88,21 @@ public class Player_InAirState : PlayerState
         }
         else if (isTouchingWall && !isTouchingLedge && Time.time >= grabLedgeStopTime + playerData.grabLedgeDelayTime)
         {
+            reachedFallDamageVelocity = false;
             playerStateMachine.ChangeState(player.LedgeClimbState);
         }
         else if (jumpInput && player.JumpState.CanJump())
         {
             playerStateMachine.ChangeState(player.JumpState);
         }
+        else if (ladderClimbInput && player.isNearLadder)
+        {
+            playerStateMachine.ChangeState(player.ClimbLadderState);
+        }
         else if (isTouchingWall && xInput == player.FacingDirection && Time.time >= disableMovingAfterLedgeJumpTime + playerData.timeToEnableMovingAfterLedgeJump)
         {
+            reachedFallDamageVelocity = false;
+            
             if (player.WallGrabState.CanGrab())
             {
                 Debug.Log("Entering Wall Grab State");
