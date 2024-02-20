@@ -40,6 +40,11 @@ public class FlyingEye : FlyingEnemy
     //Transforms
     [SerializeField] private Transform meleeAttackPosition;
     
+    //Audio
+    public AudioSource enemyAudio;
+    public AudioClip flyingEyeHurt;
+    public AudioClip flyingEyeDeath;
+    
     #endregion
 
 

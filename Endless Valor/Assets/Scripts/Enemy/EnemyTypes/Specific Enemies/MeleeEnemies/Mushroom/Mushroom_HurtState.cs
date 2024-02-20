@@ -14,6 +14,9 @@ public class Mushroom_HurtState : Enemy_HurtState
     public override void EnterState()
     {
         base.EnterState();
+
+        enemy.enemyAudio.clip = enemy.mushroomHurt;
+        enemy.enemyAudio.Play();
     }
 
     public override void ExitState()

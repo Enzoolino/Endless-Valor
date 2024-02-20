@@ -4,7 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public static Player Instance;
+    public static Player Instance; //Singleton instance
+
+    [SerializeField] private AudioSource playerAudio;
+    
     
     #region State Variables
 
@@ -57,6 +60,8 @@ public class Player : MonoBehaviour
     public Rigidbody2D Rb { get; private set; }
     public BoxCollider2D PlayerCollider { get; private set; }
     
+    public AudioSource PlayerAudio { get; private set; }
+    
     #endregion
 
     #region Other Variables
@@ -67,10 +72,12 @@ public class Player : MonoBehaviour
     private Vector2 velocityHolder;
 
     [HideInInspector] public float currentHealth;
-
     [HideInInspector] public bool isHurt; //Trigger Hurt State
     [HideInInspector] public bool isDead; //Trigger Dead State
     [HideInInspector] public bool isNearLadder; //Check if ladder is near
+    
+    public AudioClip attackClip;
+    public AudioClip attackHitClip;
     
     #endregion
     
@@ -126,6 +133,7 @@ public class Player : MonoBehaviour
         InputHandler = GetComponent<PlayerInputHandler>();
         Rb = GetComponent<Rigidbody2D>();
         PlayerCollider = GetComponent<BoxCollider2D>();
+        PlayerAudio = playerAudio;
         
         StateMachine.Initialize(IdleState);
     }

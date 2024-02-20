@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b325f0b1105e2a4089a0077b4fbd936, type: 3}
   m_Name: Mushroom_BaseData
   m_EditorClassIdentifier: 
-  maxHealth: 150
+  maxHealth: 100
   stunResistance: 3
   stunRecoveryTime: 2
   closeRangeActionDistance: 0.52

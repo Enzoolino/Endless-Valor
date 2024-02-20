@@ -17,6 +17,9 @@ public class Player_PrimaryAttackState : Player_AbilityState
         attackDetails.stunDamageAmount = playerData.primaryAttackStunDamage;
         attackDetails.position = player.primaryAttackArea.position;
         attackDetails.scale = player.primaryAttackArea.localScale;
+
+        player.PlayerAudio.clip = player.attackClip;
+        player.PlayerAudio.Play();
     }
     
     public override void ExitState()
@@ -45,13 +48,24 @@ public class Player_PrimaryAttackState : Player_AbilityState
     {
         base.AnimationTrigger();
 
+        int count = 0;
+
         Collider2D[] detectedEnemies = Physics2D.OverlapBoxAll(attackDetails.position,
             attackDetails.scale, 0f, playerData.enemyLayerMask);
             
         foreach (Collider2D collider in detectedEnemies)
         {
+            count++;
             collider.transform.SendMessage("TakeDamage", attackDetails);
         }
+
+        if (count > 0)
+        {
+            player.PlayerAudio.clip = player.attackHitClip;
+            player.PlayerAudio.Play();
+        }
+        
+        
     }
 
     public override void AnimationFinishTrigger()

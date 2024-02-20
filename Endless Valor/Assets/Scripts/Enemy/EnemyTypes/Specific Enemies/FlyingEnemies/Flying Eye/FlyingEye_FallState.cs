@@ -18,6 +18,7 @@ public class FlyingEye_FallState : Enemy_FallState
         
         enemy.boxCollider2D.size = new Vector2((float)1.751972, (float)0.4453514);
         enemy.boxCollider2D.offset = new Vector2((float)0.08396828, (float)-0.5935351);
+        enemy.gameObject.layer = 13;
     }
 
     public override void ExitState()

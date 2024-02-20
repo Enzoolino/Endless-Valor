@@ -14,6 +14,8 @@ public class FlyingEye_HurtState : Enemy_HurtState
     public override void EnterState()
     {
         base.EnterState();
+        enemy.enemyAudio.clip = enemy.flyingEyeHurt;
+        enemy.enemyAudio.Play();
     }
 
     public override void ExitState()

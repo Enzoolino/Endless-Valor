@@ -1,5 +1,4 @@
 using UnityEngine;
-using CustomBoolInspector;
 
 public class EnemyStats : MonoBehaviour
 {

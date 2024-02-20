@@ -1,5 +1,4 @@
 using System;
-using CustomBoolInspector;
 using UnityEngine;
 
 public class GroundEnemyAI : MonoBehaviour

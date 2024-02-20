@@ -11,8 +11,8 @@ public class Mushroom : MeleeEnemy
     public Mushroom_StunState StunState { get; private set; }
     public Mushroom_HurtState HurtState { get; private set; }
     public Mushroom_DeadState DeadState { get; private set; }
-    
     public EnemyEmotesHandler EmotesHandler { get; set; }
+    
 
 
     [SerializeField] private D_Enemy_IdleState idleStateData;
@@ -27,6 +27,10 @@ public class Mushroom : MeleeEnemy
 
     [SerializeField] private Transform meleeAttackPosition;
 
+    public AudioSource enemyAudio;
+    public AudioClip mushroomHurt;
+    public AudioClip mushroomDeath;
+    
     public override void Start()
     {
         base.Start();
