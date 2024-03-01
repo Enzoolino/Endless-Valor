@@ -24,6 +24,9 @@ public class PlayerInputHandler : MonoBehaviour
     //Ladder climb properties
     public bool LadderClimbInput { get; private set; }
     public bool LadderClimbInputStop { get; private set; }
+    
+    //Interact properties
+    public bool InteractInput { get; private set; }
 
 
     private void Update()
@@ -102,4 +105,15 @@ public class PlayerInputHandler : MonoBehaviour
     }
 
     public void UseLadderClimbInput() => LadderClimbInput = false;
+
+
+
+
+    public void OnInteractInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            InteractInput = true;
+        }
+    }
 }

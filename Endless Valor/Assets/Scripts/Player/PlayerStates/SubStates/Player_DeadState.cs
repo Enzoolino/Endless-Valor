@@ -7,7 +7,6 @@ public class Player_DeadState : PlayerState
 {
     private float deathScreenTimer;
     
-    
     public Player_DeadState(Player player, PlayerStateMachine playerStateMachine, D_Player playerData, string animationBoolName) : base(player, playerStateMachine, playerData, animationBoolName)
     {
     }
@@ -36,7 +35,7 @@ public class Player_DeadState : PlayerState
 
         deathScreenTimer -= Time.deltaTime;
 
-        Debug.Log($"czs do ekranu śmierci{deathScreenTimer}");
+        Debug.Log($"czss do ekranu śmierci{deathScreenTimer}");
         if (deathScreenTimer <= 0)
         {
             player.InstaDead();
