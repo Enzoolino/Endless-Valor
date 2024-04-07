@@ -116,4 +116,6 @@ public class PlayerInputHandler : MonoBehaviour
             InteractInput = true;
         }
     }
+
+    public void UseInteractInput() => InteractInput = false;
 }
