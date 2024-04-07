@@ -442,6 +442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overheadTextInitial: {fileID: 5399998058625521167}
   assignedAssistant: {fileID: 4659916600803002782}
+  fadeEffect: {fileID: 0}
 --- !u!1 &5346593217854946715
 GameObject:
   m_ObjectHideFlags: 0

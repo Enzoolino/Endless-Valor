@@ -115,6 +115,9 @@ public class TextWriter : MonoBehaviour
                
                if (characterIndex >= textToWrite.Length)
                {
+                  if (invisibleCharacters)
+                     uiText.text = textToWrite;
+                  
                   uiText = null;
                   return;
                }
