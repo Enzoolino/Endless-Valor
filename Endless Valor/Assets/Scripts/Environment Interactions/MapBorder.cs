@@ -20,5 +20,10 @@ public class MapBorder : MonoBehaviour
             //Instant death - reached border of the map
             Player.Instance.InstaDead();
         }
+        
+        if (other.CompareTag("Enemy"))
+        {
+            Destroy(other.gameObject);
+        }
     }
 }

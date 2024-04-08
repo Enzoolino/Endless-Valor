@@ -11,6 +11,7 @@ public class HeartsController : MonoBehaviour
 
     //Animator Handling
     private Animator anim;
+    
     public static readonly int isFull = Animator.StringToHash("isFull");
     public static readonly int isThreeQuarters = Animator.StringToHash("isThreeQuarters");
     public static readonly int isHalf = Animator.StringToHash("isHalf");
@@ -27,7 +28,7 @@ public class HeartsController : MonoBehaviour
 
     private void Update()
     {
-        if (playerHealth <= fullHeartHealth)
+        if (Player.Instance.isHurt)
         {
             Debug.Log($"Zmiana serduszek: {playerHealth}");
             if (playerHealth > threeQuartersHeartHealth)
@@ -55,6 +56,7 @@ public class HeartsController : MonoBehaviour
                 ResetHeartsFullness();
                 anim.SetBool(isEmpty, true);
             }
+
         }
     }
 
