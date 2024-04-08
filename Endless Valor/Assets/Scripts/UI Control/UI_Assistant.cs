@@ -10,17 +10,30 @@ public class UI_Assistant : MonoBehaviour
     [SerializeField] private float textWritingSpeed = 0.5f;
     [TextArea(8, 18)] [SerializeField] private string[] messageArray = new string[] { };
     
+    
     private int messageTracker;
     private bool interactInput;
     private bool isFirstRun;
+    private bool isUpdatingMessages;
     
     //Bools
     private bool isWriterTriggered;
 
-
+    public void TriggerMessagesUpdate() => isUpdatingMessages = true;
+    
+    private void ModifyMessage(int index, string message) //First message can't be modified else it will crash
+    {
+        if (index <= messageArray.Length - 1 && index != 0)
+        {
+            messageArray[index] = message;
+        }
+        else
+            Debug.Log("Index out of array !!!");
+    }
+    
     public bool CheckIsLastMessage()
     {
-        return messageTracker == messageArray.Length;
+        return (messageTracker == messageArray.Length && messageTextPlace.text == messageArray[messageTracker-1]);
     }
     
     public TextMeshProUGUI GetTheTextPlaceHolder()
@@ -52,6 +65,11 @@ public class UI_Assistant : MonoBehaviour
             if (isFirstRun)
             {
                 TextWriter.AddWriter_Static(messageTextPlace, messageArray[messageTracker], textWritingSpeed, true);
+
+                if (isUpdatingMessages)
+                {
+                    ModifyMessage(2, "Good Luck !" + Environment.NewLine + "[E] To Close");
+                }
                 
                 messageTracker++;
                 isWriterTriggered = false;

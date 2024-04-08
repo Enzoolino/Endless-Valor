@@ -16,19 +16,7 @@ public class TextWriter : MonoBehaviour
       instance = this;
       textWriterSingleList = new List<TextWriterSingle>();
    }
-
-   public TextMeshProUGUI FindWriter(TextMeshProUGUI uiText)
-   {
-      for (int i = 0; i < textWriterSingleList.Count; i++)
-      {
-         if (textWriterSingleList[i].GetUiText() == uiText)
-         {
-            return textWriterSingleList[i].GetUiText();
-         }
-      }
-      return null;
-   }
-
+   
    public static void AddWriter_Static(TextMeshProUGUI uiText, string textToWrite, float timePerCharacter, bool invisibleCharacters)
    {
       instance.AddWriter(uiText, textToWrite, timePerCharacter, invisibleCharacters);
