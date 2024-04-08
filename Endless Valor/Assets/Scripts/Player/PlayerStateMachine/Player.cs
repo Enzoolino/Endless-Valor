@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
     
     private Vector2 velocityHolder;
 
-    [HideInInspector] public float currentHealth;
+     public float currentHealth;
     [HideInInspector] public bool isHurt; //Trigger Hurt State
     [HideInInspector] public bool isDead; //Trigger Dead State
     [HideInInspector] public bool isNearLadder; //Check if ladder is near

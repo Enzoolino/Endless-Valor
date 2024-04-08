@@ -11,7 +11,6 @@ public class Player_HurtState : PlayerState
     public override void EnterState()
     {
         base.EnterState();
-        player.isHurt = false;
     }
 
     public override void ExitState()
@@ -42,6 +41,7 @@ public class Player_HurtState : PlayerState
     public override void AnimationFinishTrigger()
     {
         base.AnimationFinishTrigger();
+        player.isHurt = false;
         playerStateMachine.ChangeState(player.IdleState); //Changes to idle for simplification
     }
 }

@@ -1,71 +1,60 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class HeartsController : MonoBehaviour
 {
+    
     [SerializeField] private float fullHeartHealth = 20.0f;
     [SerializeField] private float threeQuartersHeartHealth = 15.0f;
     [SerializeField] private float halfHeartHealth = 10.0f;
     [SerializeField] private float oneQuarterHeartHealth = 5.0f;
     [SerializeField] private float emptyHeartHealth = 0.0f;
 
-    //Animator Handling
-    private Animator anim;
+    [SerializeField] private Sprite fullHeart;
+    [SerializeField] private Sprite threeQuartersHeart;
+    [SerializeField] private Sprite halfHeart;
+    [SerializeField] private Sprite quarterHeart;
+    [SerializeField] private Sprite emptyHeart;
     
-    public static readonly int isFull = Animator.StringToHash("isFull");
-    public static readonly int isThreeQuarters = Animator.StringToHash("isThreeQuarters");
-    public static readonly int isHalf = Animator.StringToHash("isHalf");
-    public static readonly int isQuarter = Animator.StringToHash("isQuarter");
-    public static readonly int isEmpty = Animator.StringToHash("isEmpty");
-    
+    private Image heartImage;
     private float playerHealth => Player.Instance.currentHealth;
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
-        anim.SetBool(isFull, true);
+        heartImage = GetComponent<Image>();
+        heartImage.sprite = fullHeart;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (Player.Instance.isHurt)
         {
             Debug.Log($"Zmiana serduszek: {playerHealth}");
+            
             if (playerHealth > threeQuartersHeartHealth)
             {
-                ResetHeartsFullness();
-                anim.SetBool(isFull, true);
+                heartImage.sprite = fullHeart;
             }
             else if (playerHealth <= threeQuartersHeartHealth && playerHealth > halfHeartHealth)
             {
-                ResetHeartsFullness();
-                anim.SetBool(isThreeQuarters, true);
+                heartImage.sprite = threeQuartersHeart;
             }
             else if (playerHealth <= halfHeartHealth && playerHealth > oneQuarterHeartHealth)
             {
-                ResetHeartsFullness();
-                anim.SetBool(isHalf, true);
+                heartImage.sprite = halfHeart;
             }
             else if (playerHealth <= oneQuarterHeartHealth && playerHealth > emptyHeartHealth)
             {
-                ResetHeartsFullness();
-                anim.SetBool(isQuarter, true);
+                heartImage.sprite = quarterHeart;
             }
             else if (playerHealth <= emptyHeartHealth)
             {
-                ResetHeartsFullness();
-                anim.SetBool(isEmpty, true);
+                heartImage.sprite = emptyHeart;
             }
 
         }
     }
-
-    private void ResetHeartsFullness()
-    {
-        anim.SetBool(isFull, false);
-        anim.SetBool(isThreeQuarters, false);
-        anim.SetBool(isHalf, false);
-        anim.SetBool(isQuarter, false);
-        anim.SetBool(isEmpty, false);
-    }
+    
 }

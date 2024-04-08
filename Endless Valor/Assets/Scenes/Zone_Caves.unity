@@ -506,7 +506,7 @@ Transform:
   m_GameObject: {fileID: 16488995}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.79, y: -16.4, z: 0}
+  m_LocalPosition: {x: -18.07, y: -5.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20994,6 +20994,11 @@ MonoBehaviour:
   halfHeartHealth: 10
   oneQuarterHeartHealth: 5
   emptyHeartHealth: 0
+  fullHeart: {fileID: 412007178, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  threeQuartersHeart: {fileID: -820857685, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  halfHeart: {fileID: -181416401, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  quarterHeart: {fileID: 480213558, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  emptyHeart: {fileID: 1484387243, guid: 15309169fa542734eac14ee91688be28, type: 3}
 --- !u!114 &834891664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48970,6 +48975,11 @@ MonoBehaviour:
   halfHeartHealth: 110
   oneQuarterHeartHealth: 105
   emptyHeartHealth: 100
+  fullHeart: {fileID: 412007178, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  threeQuartersHeart: {fileID: -820857685, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  halfHeart: {fileID: -181416401, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  quarterHeart: {fileID: 480213558, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  emptyHeart: {fileID: 1484387243, guid: 15309169fa542734eac14ee91688be28, type: 3}
 --- !u!114 &1205802199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59620,6 +59630,11 @@ MonoBehaviour:
   halfHeartHealth: 90
   oneQuarterHeartHealth: 85
   emptyHeartHealth: 80
+  fullHeart: {fileID: 412007178, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  threeQuartersHeart: {fileID: -820857685, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  halfHeart: {fileID: -181416401, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  quarterHeart: {fileID: 480213558, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  emptyHeart: {fileID: 1484387243, guid: 15309169fa542734eac14ee91688be28, type: 3}
 --- !u!114 &1408682669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59819,6 +59834,11 @@ MonoBehaviour:
   halfHeartHealth: 30
   oneQuarterHeartHealth: 25
   emptyHeartHealth: 20
+  fullHeart: {fileID: 412007178, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  threeQuartersHeart: {fileID: -820857685, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  halfHeart: {fileID: -181416401, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  quarterHeart: {fileID: 480213558, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  emptyHeart: {fileID: 1484387243, guid: 15309169fa542734eac14ee91688be28, type: 3}
 --- !u!114 &1409633344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61162,7 +61182,7 @@ Transform:
   m_GameObject: {fileID: 1594797337}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25.79, y: -16.4, z: -5}
+  m_LocalPosition: {x: -18.07, y: -5.37, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -63993,6 +64013,11 @@ MonoBehaviour:
   halfHeartHealth: 50
   oneQuarterHeartHealth: 45
   emptyHeartHealth: 40
+  fullHeart: {fileID: 412007178, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  threeQuartersHeart: {fileID: -820857685, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  halfHeart: {fileID: -181416401, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  quarterHeart: {fileID: 480213558, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  emptyHeart: {fileID: 1484387243, guid: 15309169fa542734eac14ee91688be28, type: 3}
 --- !u!114 &1807977512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64162,7 +64187,7 @@ Transform:
   m_GameObject: {fileID: 1830438754}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25.79, y: -16.4, z: -5}
+  m_LocalPosition: {x: -18.07, y: -5.37, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -75360,6 +75385,11 @@ MonoBehaviour:
   halfHeartHealth: 70
   oneQuarterHeartHealth: 65
   emptyHeartHealth: 60
+  fullHeart: {fileID: 412007178, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  threeQuartersHeart: {fileID: -820857685, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  halfHeart: {fileID: -181416401, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  quarterHeart: {fileID: 480213558, guid: 15309169fa542734eac14ee91688be28, type: 3}
+  emptyHeart: {fileID: 1484387243, guid: 15309169fa542734eac14ee91688be28, type: 3}
 --- !u!114 &2137306220
 MonoBehaviour:
   m_ObjectHideFlags: 0
