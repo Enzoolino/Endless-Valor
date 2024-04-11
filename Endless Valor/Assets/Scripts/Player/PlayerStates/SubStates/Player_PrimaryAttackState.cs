@@ -35,7 +35,6 @@ public class Player_PrimaryAttackState : Player_AbilityState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        
         player.SetVelocityZero();
     }
 
@@ -65,13 +64,13 @@ public class Player_PrimaryAttackState : Player_AbilityState
             player.PlayerAudio.Play();
         }
         
-        
     }
 
     public override void AnimationFinishTrigger()
     {
         base.AnimationFinishTrigger();
         player.InputHandler.UsePrimaryAttackInput();
+        player.SetComboTimer(playerData.comboTimer);
         isAbilityDone = true;
     }
     

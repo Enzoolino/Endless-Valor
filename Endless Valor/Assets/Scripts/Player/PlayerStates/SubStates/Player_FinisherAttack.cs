@@ -2,23 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_SecondaryAttackState : Player_AbilityState
+public class Player_FinisherAttack : Player_AbilityState
 {
     protected AttackDetails attackDetails;
     
-    public Player_SecondaryAttackState(Player player, PlayerStateMachine playerStateMachine, D_Player playerData, string animationBoolName) : base(player, playerStateMachine, playerData, animationBoolName)
+    public Player_FinisherAttack(Player player, PlayerStateMachine playerStateMachine, D_Player playerData, string animationBoolName) : base(player, playerStateMachine, playerData, animationBoolName)
     {
     }
+
 
     public override void EnterState()
     {
         base.EnterState();
-        //TODO: Change to secondary
-        attackDetails.damageAmount = playerData.secondaryAttackDamage;
-        attackDetails.stunDamageAmount = playerData.secondaryAttackStunDamage;
-        attackDetails.position = player.secondaryAttackArea.position;
-        attackDetails.scale = player.secondaryAttackArea.localScale;
         
+        attackDetails.damageAmount = playerData.finishingAttackDamage;
+        attackDetails.stunDamageAmount = playerData.finishingAttackStunDamage;
+        attackDetails.position = player.finishingAttackArea.position;
+        attackDetails.scale = player.finishingAttackArea.localScale;
+
         player.PlayerAudio.clip = player.attackClip;
         player.PlayerAudio.Play();
     }
@@ -36,7 +37,6 @@ public class Player_SecondaryAttackState : Player_AbilityState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        
         player.SetVelocityZero();
     }
 
@@ -49,6 +49,8 @@ public class Player_SecondaryAttackState : Player_AbilityState
     {
         base.AnimationTrigger();
         
+        base.AnimationTrigger();
+
         int count = 0;
 
         Collider2D[] detectedEnemies = Physics2D.OverlapBoxAll(attackDetails.position,
@@ -71,8 +73,8 @@ public class Player_SecondaryAttackState : Player_AbilityState
     {
         base.AnimationFinishTrigger();
         player.InputHandler.UsePrimaryAttackInput();
-        player.SetComboTimer(playerData.comboTimer);
-        player.SetComboState(3);
+        player.SetComboTimer(0);
+        player.SetComboState(2);
         isAbilityDone = true;
     }
 }

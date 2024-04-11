@@ -14,7 +14,9 @@ public class Enemy_DeadState : EnemyState
         base.EnterState();
         enemy.Rb.bodyType = RigidbodyType2D.Static;
         enemy.boxCollider2D.enabled = false;
-        enemy.DestroyEnemyObject(stateData.deathDelay);
+        
+        //TODO: Check performance with bodies not removing
+        //enemy.DestroyEnemyObject(stateData.deathDelay);
         
         if (player != null)
         {

@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public Player_LedgeClimbState LedgeClimbState { get; private set; }
     public Player_PrimaryAttackState PrimaryAttackState { get; private set; }
     public Player_SecondaryAttackState SecondaryAttackState { get; private set; }
+    public Player_FinisherAttack FinisherAttackState { get; private set; }
     public Player_ClimbLadder ClimbLadderState { get; private set; }
     public Player_HurtState HurtState { get; private set; }
     public Player_DeadState DeadState { get; private set; }
@@ -59,7 +60,6 @@ public class Player : MonoBehaviour
     public PlayerInputHandler InputHandler { get; private set; }
     public Rigidbody2D Rb { get; private set; }
     public BoxCollider2D PlayerCollider { get; private set; }
-    
     public AudioSource PlayerAudio { get; private set; }
     
     #endregion
@@ -71,10 +71,16 @@ public class Player : MonoBehaviour
     
     private Vector2 velocityHolder;
 
-     public float currentHealth;
+    
+    
+    public float currentHealth;
     [HideInInspector] public bool isHurt; //Trigger Hurt State
     [HideInInspector] public bool isDead; //Trigger Dead State
     [HideInInspector] public bool isNearLadder; //Check if ladder is near
+    
+    
+    private float comboTimer;
+    private int comboState = 2;
     
     public AudioClip attackClip;
     public AudioClip attackHitClip;
@@ -85,6 +91,7 @@ public class Player : MonoBehaviour
 
     public Transform primaryAttackArea;
     public Transform secondaryAttackArea;
+    public Transform finishingAttackArea;
     public Transform enemyOrientedOffsetPosition;
     
     #endregion
@@ -111,6 +118,7 @@ public class Player : MonoBehaviour
         LedgeClimbState = new Player_LedgeClimbState(this, StateMachine, playerData, "isInLedgeClimbState");
         PrimaryAttackState = new Player_PrimaryAttackState(this, StateMachine, playerData, "isAttackingPrimary");
         SecondaryAttackState = new Player_SecondaryAttackState(this, StateMachine, playerData, "isAttackingSecondary");
+        FinisherAttackState = new Player_FinisherAttack(this, StateMachine, playerData, "isAttackingFinishing");
         ClimbLadderState = new Player_ClimbLadder(this, StateMachine, playerData, "isClimbingLadder");
         HurtState = new Player_HurtState(this, StateMachine, playerData, "isHurt");
         DeadState = new Player_DeadState(this, StateMachine, playerData, "isDead");
@@ -142,6 +150,12 @@ public class Player : MonoBehaviour
     {
         CurrentVelocity = Rb.velocity;
         StateMachine.CurrentState.LogicUpdate();
+
+        if (CheckIfComboAvailable())
+            comboTimer -= Time.deltaTime;
+
+        if (!CheckIfComboAvailable())
+            comboState = 2;
     }
 
     private void FixedUpdate()
@@ -182,7 +196,16 @@ public class Player : MonoBehaviour
         Rb.velocity = velocityHolder;
         CurrentVelocity = velocityHolder;
     }
-    
+
+    public void SetComboTimer(float time)
+    {
+        comboTimer = time;
+    }
+
+    public void SetComboState(int state)
+    {
+        comboState = state;
+    }
     
     #endregion
 
@@ -226,6 +249,10 @@ public class Player : MonoBehaviour
         return raycastHit.collider != null;
     }
 
+    public bool CheckIfComboAvailable() => comboTimer > 0;
+    public int CheckComboState() => comboState;
+    
+
     #endregion
 
     #region Other Functions
@@ -258,7 +285,7 @@ public class Player : MonoBehaviour
         FacingDirection *= -1;
         transform.Rotate(0.0f, 180.0f, 0.0f);
     }
-
+    
     public void TakeDamage(AttackDetails attackDetails)
     {
         currentHealth -= attackDetails.damageAmount;

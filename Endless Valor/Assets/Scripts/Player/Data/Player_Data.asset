@@ -36,8 +36,11 @@ MonoBehaviour:
   ledgeJumpForce: 7
   startOffset: {x: 0, y: 0.5}
   stopOffset: {x: 0, y: 0}
+  comboTimer: 0.5
   primaryAttackDamage: 25
   primaryAttackStunDamage: 1
+  climbLadderSpeed: 4
+  deathScreenDelay: 5
   groundCheckRange: 0.05
   wallCheckRange: 0.15
   ledgeCheckRange: 0.2

@@ -17,7 +17,6 @@ public class Enemy_HurtState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
-        Debug.Log("Entered Enemy Hurt State");
     }
 
     public override void ExitState()

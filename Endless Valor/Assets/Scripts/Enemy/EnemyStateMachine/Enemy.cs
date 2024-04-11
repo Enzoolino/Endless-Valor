@@ -162,7 +162,7 @@ public class Enemy : MonoBehaviour
             isDead = true;
         }
         
-        if (currentStunResistance <= 0)
+        if (currentStunResistance <= 0 && !isDead)
         {
             isStunned = true;
         }

@@ -79,8 +79,6 @@ public class FlyingEye : FlyingEnemy
         {
             StateMachine.ChangeState(HurtState);
         }
-        
-        //TODO: Dodać stun state ? Może nie
     }
 
     public void OnDrawGizmos()

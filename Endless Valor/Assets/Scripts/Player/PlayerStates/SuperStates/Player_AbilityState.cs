@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_AbilityState : PlayerState
 {
-    protected bool isAbilityDone;
+    protected bool isAbilityDone; //It disables states when the ability is done
     private bool isGrounded;
     
     public Player_AbilityState(Player player, PlayerStateMachine playerStateMachine, D_Player playerData, string animationBoolName) : base(player, playerStateMachine, playerData, animationBoolName)
@@ -15,7 +15,6 @@ public class Player_AbilityState : PlayerState
     {
         base.EnterState();
         isAbilityDone = false;
-        Debug.Log("Wchodzenie do abilitystate a więc " + isAbilityDone);
     }
 
     public override void ExitState()
@@ -26,6 +25,8 @@ public class Player_AbilityState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        
+        
         
         if (isAbilityDone)
         {

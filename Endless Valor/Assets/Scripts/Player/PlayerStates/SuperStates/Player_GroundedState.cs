@@ -45,9 +45,17 @@ public class Player_GroundedState : PlayerState
         {
             playerStateMachine.ChangeState(player.JumpState);
         }
-        else if (primaryAttackInput)
+        else if (primaryAttackInput && !player.CheckIfComboAvailable())
         {
             playerStateMachine.ChangeState(player.PrimaryAttackState);
+        }
+        else if (primaryAttackInput && player.CheckIfComboAvailable() && player.CheckComboState() == 2)
+        {
+            playerStateMachine.ChangeState(player.SecondaryAttackState);
+        }
+        else if (primaryAttackInput && player.CheckIfComboAvailable() && player.CheckComboState() == 3)
+        {
+            playerStateMachine.ChangeState(player.FinisherAttackState);
         }
         else if (ladderClimbInput && player.isNearLadder)
         {
@@ -58,6 +66,8 @@ public class Player_GroundedState : PlayerState
             player.JumpState.DecreaseAmountOfJumpsLeft();
             playerStateMachine.ChangeState(player.InAirState);
         }
+        
+        
     }
 
     public override void PhysicsUpdate()

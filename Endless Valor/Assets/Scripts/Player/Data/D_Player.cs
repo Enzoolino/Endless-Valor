@@ -43,9 +43,20 @@ public class D_Player : ScriptableObject
     public Vector2 startOffset;
     public Vector2 stopOffset;
 
+    [Header("Attack")] 
+    public float comboTimer = 3.0f;
+
     [Header("Primary Attack State")] 
     public float primaryAttackDamage = 25.0f;
     public float primaryAttackStunDamage = 1.0f;
+
+    [Header("Secondary Attack State")] 
+    public float secondaryAttackDamage = 30.0f;
+    public float secondaryAttackStunDamage = 1.0f;
+
+    [Header("Finisher Attack State")] 
+    public float finishingAttackDamage = 30.0f;
+    public float finishingAttackStunDamage = 1.0f;
 
     [Header("Climb Ladder State")] 
     public float climbLadderSpeed = 4.0f;
