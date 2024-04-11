@@ -117,7 +117,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -137,7 +137,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 11
+  m_SortingOrder: 10
   m_Sprite: {fileID: -4795363162621231457, guid: 6d7cd4f7505dc674c891ca8946cfd98b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -234,7 +234,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1.5
+  m_LinearDrag: 5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: f6b23939950da464cb2191a6b4bf3ee0, type: 2}
@@ -243,7 +243,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 3328
+    m_Bits: 3392
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -350,10 +350,14 @@ MonoBehaviour:
   lookForPlayerStateData: {fileID: 11400000, guid: e8257527569c09f43b7812d4f3470259, type: 2}
   chargeStateData: {fileID: 11400000, guid: ac9ec2afe972d364583ada0806a812a6, type: 2}
   meleeAttackStateData: {fileID: 11400000, guid: 20bac32abd25ddd4f850a2835ffd4e1e, type: 2}
+  chargeAttackStateData: {fileID: 11400000, guid: 396ddffff1f6e06489431064cdf05f58, type: 2}
   hurtStateData: {fileID: 11400000, guid: ca53bdcfa7dbd144c8881e2bb8e4c848, type: 2}
   fallStateData: {fileID: 11400000, guid: 3868d8413fb2d1b42a268822f361cdb8, type: 2}
   deadStateData: {fileID: 11400000, guid: 8ed3417b2c53d9147b68479a48eb123b, type: 2}
   meleeAttackPosition: {fileID: 5247612344156061888}
+  enemyAudio: {fileID: 6500921726234539292}
+  flyingEyeHurt: {fileID: 0}
+  flyingEyeDeath: {fileID: 0}
 --- !u!114 &9003456773078126696
 MonoBehaviour:
   m_ObjectHideFlags: 0

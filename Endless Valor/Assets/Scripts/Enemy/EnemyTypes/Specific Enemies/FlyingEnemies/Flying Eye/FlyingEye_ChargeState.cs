@@ -1,7 +1,12 @@
 
+using System.Numerics;
+using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
+
 public class FlyingEye_ChargeState : Enemy_ChargeState
 {
     private FlyingEye enemy;
+    private Vector3 externalTargetPoint;
     
     public FlyingEye_ChargeState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, D_Enemy_ChargeState stateData, FlyingEye specificEnemy) : base(enemy, enemyStateMachine, animationBoolName, stateData)
     {
@@ -22,15 +27,18 @@ public class FlyingEye_ChargeState : Enemy_ChargeState
     {
         base.LogicUpdate();
 
-        if (Player.Instance != null)
+        if (Player.Instance != null && !isChargeTimeOver)
         {
             enemy.CalculatedFlip(Player.Instance.transform.position.x);
-            enemy.ChaseTheTarget(Player.Instance.enemyOrientedOffsetPosition, stateData.chargeSpeed);
+            externalTargetPoint = enemy.CalculateCloserAttackPoint(Player.Instance.enemyOrientedOffsetPositionFront,
+                Player.Instance.enemyOrientedOffsetPositionBack);
+            enemy.ChaseTheTarget(externalTargetPoint, stateData.chargeSpeed);
+            
         }
         
         if (performCloseRangeAction)
         {
-            enemyStateMachine.ChangeState(enemy.MeleeAttackState);
+            enemyStateMachine.ChangeState(enemy.ChargeAttackState);
         }
         else if (isChargeTimeOver)
         {

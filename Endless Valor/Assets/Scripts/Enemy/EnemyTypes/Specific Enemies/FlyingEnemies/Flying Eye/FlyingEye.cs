@@ -12,6 +12,7 @@ public class FlyingEye : FlyingEnemy
     public FlyingEye_LookForPlayerState LookForPlayerState { get; private set; }
     public FlyingEye_ChargeState ChargeState { get; private set; }
     public FlyingEye_MeleeAttackState MeleeAttackState { get; private set; }
+    public FlyingEye_ChargeAttackState ChargeAttackState { get; private set; }
     public FlyingEye_HurtState HurtState { get; private set; }
     public FlyingEye_FallState FallState { get; private set; }
     public FlyingEye_DeadState DeadState { get; private set; }
@@ -33,6 +34,7 @@ public class FlyingEye : FlyingEnemy
     [SerializeField] private D_Enemy_LookForPlayerState lookForPlayerStateData;
     [SerializeField] private D_Enemy_ChargeState chargeStateData;
     [SerializeField] private D_Enemy_MeleeAttackState meleeAttackStateData;
+    [SerializeField] private D_Enemy_ChargeAttackState chargeAttackStateData;
     [SerializeField] private D_Enemy_HurtState hurtStateData;
     [SerializeField] private D_Enemy_FallState fallStateData;
     [SerializeField] private D_Enemy_DeadState deadStateData;
@@ -58,6 +60,7 @@ public class FlyingEye : FlyingEnemy
         LookForPlayerState = new FlyingEye_LookForPlayerState(this, StateMachine, "isLookingForPlayer", lookForPlayerStateData, this, EmotesHandler);
         ChargeState = new FlyingEye_ChargeState(this, StateMachine, "isCharging", chargeStateData, this);
         MeleeAttackState = new FlyingEye_MeleeAttackState(this, StateMachine, "isAttackingNormal", meleeAttackPosition, meleeAttackStateData, this);
+        ChargeAttackState = new FlyingEye_ChargeAttackState(this, StateMachine, "isAttackingCharge", meleeAttackPosition, chargeAttackStateData, this);
         HurtState = new FlyingEye_HurtState(this, StateMachine, "isHurt", hurtStateData, this);
         FallState = new FlyingEye_FallState(this, StateMachine, "isFalling", fallStateData, this);
         DeadState = new FlyingEye_DeadState(this, StateMachine, "isDead", deadStateData, this);

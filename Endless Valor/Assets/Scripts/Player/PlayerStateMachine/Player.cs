@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
@@ -92,7 +93,8 @@ public class Player : MonoBehaviour
     public Transform primaryAttackArea;
     public Transform secondaryAttackArea;
     public Transform finishingAttackArea;
-    public Transform enemyOrientedOffsetPosition;
+    public Transform enemyOrientedOffsetPositionFront;
+    public Transform enemyOrientedOffsetPositionBack;
     
     #endregion
 

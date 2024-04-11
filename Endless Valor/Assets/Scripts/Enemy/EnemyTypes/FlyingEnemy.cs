@@ -3,7 +3,6 @@ using UnityEngine;
 public class FlyingEnemy : Enemy
 {
     [HideInInspector] public bool isFalling; //Is responsible for transferring to fall state before dead state
-    
     [HideInInspector] public bool isPlayerInDetectionRadius;
 
     public override void TakeDamage(AttackDetails attackDetails)
@@ -51,12 +50,36 @@ public class FlyingEnemy : Enemy
 
 
     //Moving Handlers
-    public void ChaseTheTarget(Transform target, float chaseSpeed)
+    public void ChaseTheTarget(Vector3 target, float chaseSpeed)
     {
-        transform.position = Vector2.MoveTowards(transform.position,
-            target.position, chaseSpeed * Time.deltaTime);
+        /*transform.position = Vector2.MoveTowards(transform.position,
+            target, chaseSpeed * Time.deltaTime);*/
+        
+        // Calculate the direction towards the target
+        Vector3 moveDirection = (target - transform.position).normalized;
+
+        // Move the enemy in the target direction without any positional adjustments
+        transform.position += moveDirection * chaseSpeed * Time.deltaTime;
     }
 
+    public Vector3 CalculateCloserAttackPoint(Transform attackPoint1, Transform attackPoint2)
+    {
+        Vector3 target = transform.position;
+        
+        float distance1 = Mathf.Abs(Vector3.Distance(target, attackPoint1.position));
+        float distance2 = Mathf.Abs(Vector3.Distance(target, attackPoint2.position));
+
+        //Debug.Log("Distance1: " + distance1);
+        //Debug.Log("Distance2 " + distance2);
+        
+        if (distance1 < distance2)
+            return attackPoint1.position;
+        else
+            return attackPoint2.position;
+
+    }
+    
+    
     public void ReturnToInitialPosition(Vector3 initialPosition, float movementSpeed)
     {
         transform.position =
