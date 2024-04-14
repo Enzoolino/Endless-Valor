@@ -18,6 +18,16 @@ public class FlyingEye_PlayerDetectedState : Enemy_PlayerDetectedState
         
         if (enemyStateMachine.PreviousState == enemy.LookForPlayerState)
             wasLookingForPlayer = true;
+        else
+        {
+            while (enemy.enemyAudio.isPlaying)
+            {
+                return;
+            }
+
+            enemy.enemyAudio.clip = enemy.flyingEyeSurprisedSound;
+            enemy.enemyAudio.Play();
+        }
     }
 
     public override void ExitState()
@@ -29,11 +39,15 @@ public class FlyingEye_PlayerDetectedState : Enemy_PlayerDetectedState
     {
         base.LogicUpdate();
         
-        enemy.MeleeAttackState.attackCooldownTimer -= Time.deltaTime;  //TODO: Zmienić to na funkcje
-        if (enemy.MeleeAttackState.attackCooldownTimer <= 0)
+        enemy.attackCooldownTimer -= Time.deltaTime;  //TODO: Zmienić to na funkcje
+
+        if (enemy.attackCooldownTimer <= 0)
+        {
             enemy.MeleeAttackState.isAttackOnCooldown = false;
+            enemy.ChargeAttackState.isAttackOnCooldown = false;
+        }
         
-        if (performCloseRangeAction && !enemy.MeleeAttackState.isAttackOnCooldown)
+        if (performCloseRangeAction && !enemy.MeleeAttackState.isAttackOnCooldown && !enemy.ChargeAttackState.isAttackOnCooldown)
         {
             enemyStateMachine.ChangeState(enemy.MeleeAttackState);
         }

@@ -9,7 +9,7 @@ public class FlyingEnemy : Enemy
     {
         base.TakeDamage(attackDetails);
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0.5f)
         {
             isFalling = true;
         }

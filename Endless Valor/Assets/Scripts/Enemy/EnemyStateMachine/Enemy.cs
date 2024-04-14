@@ -16,14 +16,17 @@ public class Enemy : MonoBehaviour
     
     private Vector2 velocityHolder;
     
-    protected float currentHealth;
+    public float currentHealth;
     private float currentStunResistance;
     private float lastDamageTime;
 
     protected bool isStunned;
     [HideInInspector] public bool isHurt; //Trigger hurt state
     [HideInInspector] public bool isDead; //Trigger dead state
-    
+
+    [HideInInspector] public bool didAttackHit;
+    public float attackCooldownTimer;
+
     
     public virtual void Start()
     {
@@ -151,12 +154,12 @@ public class Enemy : MonoBehaviour
             LastDamageDirection = 1;
         }
         
-        if (currentHealth > 0)
+        if (currentHealth > 0.5f)
         {
             Debug.Log("Enemy is hurt !");
             isHurt = true;
         }
-        else if (currentHealth <= 0)
+        else if (currentHealth <= 0.5f)
         {
             Debug.Log("Enemy is dead !");
             isDead = true;
@@ -211,9 +214,11 @@ public class Enemy : MonoBehaviour
         }
         return compareOption;
     }
-    
-    public void DestroyEnemyObject(float delay)
+
+
+    public void ResetBasicAttackCooldowns(float value)
     {
-        Destroy(gameObject, delay);
+        attackCooldownTimer = value;
     }
+    
 }

@@ -15,7 +15,7 @@ public class Mushroom_HurtState : Enemy_HurtState
     {
         base.EnterState();
 
-        enemy.enemyAudio.clip = enemy.mushroomHurt;
+        enemy.enemyAudio.clip = enemy.mushroomHurtSound;
         enemy.enemyAudio.Play();
     }
 
@@ -50,7 +50,7 @@ public class Mushroom_HurtState : Enemy_HurtState
         
         if (performCloseRangeAction)
         {
-            enemyStateMachine.ChangeState(enemy.MeleeAttackState);
+            enemyStateMachine.ChangeState(enemy.PlayerDetectedState);
         }
         else if (isPlayerInCloseAggroRange)
         {

@@ -81,7 +81,7 @@ public class PlayerInputHandler : MonoBehaviour
     
     public void OnSecondaryAttackInput(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && !SecondaryAttackInput)
         {
             SecondaryAttackInput = true;
         }
@@ -106,9 +106,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void UseLadderClimbInput() => LadderClimbInput = false;
 
-
-
-
+    
     public void OnInteractInput(InputAction.CallbackContext context)
     {
         if (context.started)

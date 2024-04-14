@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FlyingEye : FlyingEnemy
 {
@@ -42,10 +43,16 @@ public class FlyingEye : FlyingEnemy
     //Transforms
     [SerializeField] private Transform meleeAttackPosition;
     
-    //Audio
+    //Audio //For random audio use AudioClip[] and Utilities function
     public AudioSource enemyAudio;
-    public AudioClip flyingEyeHurt;
-    public AudioClip flyingEyeDeath;
+    public AudioClip flyingEyeHurtSound;
+    public AudioClip flyingEyeDeathSound;
+    public AudioClip flyingEyeChargeSound;
+    public AudioClip flyingEyeChargeAttackHitSound;
+    public AudioClip flyingEyeMeleeAttackHitSound;
+    public AudioClip flyingEyeAttackMissSound;
+    public AudioClip flyingEyeSurprisedSound;
+    
     
     #endregion
 

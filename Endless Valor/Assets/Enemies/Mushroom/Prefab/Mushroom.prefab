@@ -305,8 +305,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 46246bd0f4bf5e64da54debedfb25609, type: 2}
+  currentHealth: 0
   isHurt: 0
   isDead: 0
+  didAttackHit: 0
+  attackCooldownTimer: 0
   idleStateData: {fileID: 11400000, guid: becd14c4ecac8774f886701d83c18395, type: 2}
   moveStateData: {fileID: 11400000, guid: aeb8f9f3666e1c64cbbe83375f425c90, type: 2}
   playerDetectedStateData: {fileID: 11400000, guid: dd9a0d7d0ceb78d49abdd33ea0422346, type: 2}
@@ -318,8 +321,12 @@ MonoBehaviour:
   deadStateData: {fileID: 11400000, guid: 9a9ba4cc44ceb094898dea3a9e8cbc6f, type: 2}
   meleeAttackPosition: {fileID: 7371625083128207600}
   enemyAudio: {fileID: 4641779111131468468}
-  mushroomHurt: {fileID: 8300000, guid: 7eb6b20866f7d7047b64bb95daf5c954, type: 3}
-  mushroomDeath: {fileID: 0}
+  mushroomHurtSound: {fileID: 8300000, guid: 9c456cdb3010df3409333f1b32e45de1, type: 3}
+  mushroomDeathSound: {fileID: 8300000, guid: c3f13e99ad3c41a438e3c768cd80024c, type: 3}
+  mushroomAttackHitSound: {fileID: 8300000, guid: 5661a6494a2ffcb4ea140000a75505b7, type: 3}
+  mushroomAttackMissSound: {fileID: 8300000, guid: 0c8f382d2b0a9c645bd4888b9372fd62, type: 3}
+  mushroomSurprisedSound: {fileID: 8300000, guid: 81021080a2a473c4d9043ff52d66ddcd, type: 3}
+  mushroomStunSound: {fileID: 0}
 --- !u!114 &3365077822225344655
 MonoBehaviour:
   m_ObjectHideFlags: 0

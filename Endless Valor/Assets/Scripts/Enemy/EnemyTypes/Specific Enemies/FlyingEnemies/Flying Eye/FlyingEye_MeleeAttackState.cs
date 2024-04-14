@@ -52,6 +52,10 @@ public class FlyingEye_MeleeAttackState : Enemy_MeleeAttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
+
+        enemy.enemyAudio.clip =
+            enemy.didAttackHit ? enemy.flyingEyeMeleeAttackHitSound : enemy.flyingEyeAttackMissSound;
+        enemy.enemyAudio.Play();
     }
 
     public override void FinishAttack()

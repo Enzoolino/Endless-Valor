@@ -16,6 +16,9 @@ public class FlyingEye_ChargeState : Enemy_ChargeState
     public override void EnterState()
     {
         base.EnterState();
+
+        enemy.enemyAudio.clip = enemy.flyingEyeChargeSound;
+        enemy.enemyAudio.Play();
     }
 
     public override void ExitState()

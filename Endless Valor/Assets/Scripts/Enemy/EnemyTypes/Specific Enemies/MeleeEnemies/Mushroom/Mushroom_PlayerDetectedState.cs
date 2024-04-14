@@ -17,6 +17,17 @@ public class Mushroom_PlayerDetectedState : Enemy_PlayerDetectedState
 
         if (enemyStateMachine.PreviousState == enemy.LookForPlayerState)
             wasLookingForPlayer = true;
+        else
+        {
+            while (enemy.enemyAudio.isPlaying)
+            {
+                return;
+            }
+            
+            enemy.enemyAudio.clip = enemy.mushroomSurprisedSound;
+            enemy.enemyAudio.Play();
+        }
+        
     }
 
     public override void ExitState()
@@ -29,8 +40,8 @@ public class Mushroom_PlayerDetectedState : Enemy_PlayerDetectedState
         base.LogicUpdate();
         
         // Cooldown is here because the enemy transfers to this state when on cooldown
-        enemy.MeleeAttackState.attackCooldownTimer -= Time.deltaTime;  //TODO: Zmienić to na funkcje
-        if (enemy.MeleeAttackState.attackCooldownTimer <= 0)
+        enemy.attackCooldownTimer -= Time.deltaTime;  //TODO: Zmienić to na funkcje
+        if (enemy.attackCooldownTimer <= 0)
             enemy.MeleeAttackState.isAttackOnCooldown = false;
         
         if (performCloseRangeAction && !enemy.MeleeAttackState.isAttackOnCooldown) 

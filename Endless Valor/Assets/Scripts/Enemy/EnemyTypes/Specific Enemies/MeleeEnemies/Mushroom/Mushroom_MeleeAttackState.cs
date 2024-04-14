@@ -15,6 +15,7 @@ public class Mushroom_MeleeAttackState : Enemy_MeleeAttackState
     {
         base.EnterState();
         Debug.Log("Entering Attack State");
+        
     }
 
     public override void ExitState()
@@ -54,6 +55,9 @@ public class Mushroom_MeleeAttackState : Enemy_MeleeAttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
+
+        enemy.enemyAudio.clip = enemy.didAttackHit ? enemy.mushroomAttackHitSound : enemy.mushroomAttackMissSound;
+        enemy.enemyAudio.Play();
     }
 
     public override void FinishAttack()

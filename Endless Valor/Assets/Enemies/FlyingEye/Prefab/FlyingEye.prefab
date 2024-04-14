@@ -137,7 +137,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: -4795363162621231457, guid: 6d7cd4f7505dc674c891ca8946cfd98b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -341,8 +341,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: dbbc09ef5d4d6854ebade1e7c05f19b8, type: 2}
+  currentHealth: 0
   isHurt: 0
   isDead: 0
+  didAttackHit: 0
+  attackCooldownTimer: 0
   isFalling: 0
   isPlayerInDetectionRadius: 0
   idleStateData: {fileID: 11400000, guid: e35317d935cea2c459fc4a71252a882b, type: 2}
@@ -356,8 +359,13 @@ MonoBehaviour:
   deadStateData: {fileID: 11400000, guid: 8ed3417b2c53d9147b68479a48eb123b, type: 2}
   meleeAttackPosition: {fileID: 5247612344156061888}
   enemyAudio: {fileID: 6500921726234539292}
-  flyingEyeHurt: {fileID: 0}
-  flyingEyeDeath: {fileID: 0}
+  flyingEyeHurtSound: {fileID: 8300000, guid: a5d9def0ae70a554592ad376341bfff6, type: 3}
+  flyingEyeDeathSound: {fileID: 8300000, guid: a57cf057e9bbc9f4dbe02d610d158a53, type: 3}
+  flyingEyeChargeSound: {fileID: 8300000, guid: 56f58b0d88d80004fa0e764e7c0c8653, type: 3}
+  flyingEyeChargeAttackHitSound: {fileID: 8300000, guid: b9b45c8d8cfc9814691aac15b931ab23, type: 3}
+  flyingEyeMeleeAttackHitSound: {fileID: 8300000, guid: f2e0d02bd07868b4a90ead80e7404af0, type: 3}
+  flyingEyeAttackMissSound: {fileID: 8300000, guid: 0c8f382d2b0a9c645bd4888b9372fd62, type: 3}
+  flyingEyeSurprisedSound: {fileID: 0}
 --- !u!114 &9003456773078126696
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47c0f0b984441ca4098016aba3565620, type: 3}
   m_Name: FlyingEye_ChargeStateData
   m_EditorClassIdentifier: 
-  chargeSpeed: 4
+  chargeSpeed: 5
   chargeTime: 2

@@ -14,6 +14,9 @@ public class FlyingEye_DeadState : Enemy_DeadState
     public override void EnterState()
     {
         base.EnterState();
+
+        enemy.enemyAudio.clip = enemy.flyingEyeDeathSound;
+        enemy.enemyAudio.Play();
     }
 
     public override void ExitState()

@@ -55,7 +55,7 @@ public class Player_GroundedState : PlayerState
         }
         else if (primaryAttackInput && player.CheckIfComboAvailable() && player.CheckComboState() == 3)
         {
-            playerStateMachine.ChangeState(player.FinisherAttackState);
+            playerStateMachine.ChangeState(player.finishingAttackStateState);
         }
         else if (ladderClimbInput && player.isNearLadder)
         {

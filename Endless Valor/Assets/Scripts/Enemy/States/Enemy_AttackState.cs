@@ -53,7 +53,7 @@ public class Enemy_AttackState : EnemyState
 
     public virtual void FinishAttack()
     {
-        isAnimationFinished = true;
         isAttackOnCooldown = true;
+        isAnimationFinished = true;
     }
 }

@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     public Player_LedgeClimbState LedgeClimbState { get; private set; }
     public Player_PrimaryAttackState PrimaryAttackState { get; private set; }
     public Player_SecondaryAttackState SecondaryAttackState { get; private set; }
-    public Player_FinisherAttack FinisherAttackState { get; private set; }
+    public Player_FinishingAttackState finishingAttackStateState { get; private set; }
     public Player_ClimbLadder ClimbLadderState { get; private set; }
     public Player_HurtState HurtState { get; private set; }
     public Player_DeadState DeadState { get; private set; }
@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
         LedgeClimbState = new Player_LedgeClimbState(this, StateMachine, playerData, "isInLedgeClimbState");
         PrimaryAttackState = new Player_PrimaryAttackState(this, StateMachine, playerData, "isAttackingPrimary");
         SecondaryAttackState = new Player_SecondaryAttackState(this, StateMachine, playerData, "isAttackingSecondary");
-        FinisherAttackState = new Player_FinisherAttack(this, StateMachine, playerData, "isAttackingFinishing");
+        finishingAttackStateState = new Player_FinishingAttackState(this, StateMachine, playerData, "isAttackingFinishing");
         ClimbLadderState = new Player_ClimbLadder(this, StateMachine, playerData, "isClimbingLadder");
         HurtState = new Player_HurtState(this, StateMachine, playerData, "isHurt");
         DeadState = new Player_DeadState(this, StateMachine, playerData, "isDead");

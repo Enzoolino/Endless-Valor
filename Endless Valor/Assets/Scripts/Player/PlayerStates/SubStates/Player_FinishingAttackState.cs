@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_FinisherAttack : Player_AbilityState
+public class Player_FinishingAttackState : Player_AbilityState
 {
     protected AttackDetails attackDetails;
     
-    public Player_FinisherAttack(Player player, PlayerStateMachine playerStateMachine, D_Player playerData, string animationBoolName) : base(player, playerStateMachine, playerData, animationBoolName)
+    public Player_FinishingAttackState(Player player, PlayerStateMachine playerStateMachine, D_Player playerData, string animationBoolName) : base(player, playerStateMachine, playerData, animationBoolName)
     {
     }
 

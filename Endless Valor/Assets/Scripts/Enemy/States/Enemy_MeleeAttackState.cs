@@ -6,7 +6,6 @@ public class Enemy_MeleeAttackState : Enemy_AttackState
 {
     protected D_Enemy_MeleeAttackState stateData;
     protected AttackDetails attackDetails;
-    public float attackCooldownTimer;
 
     public Enemy_MeleeAttackState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animationBoolName, Transform attackPosition, D_Enemy_MeleeAttackState stateData) : base(enemy, enemyStateMachine, animationBoolName, attackPosition)
     {
@@ -56,12 +55,13 @@ public class Enemy_MeleeAttackState : Enemy_AttackState
         {
             collider.transform.SendMessage("TakeDamage", attackDetails);
         }
+
+        enemy.didAttackHit = detectedObjects.Length != 0;
     }
 
     public override void FinishAttack()
     {
         base.FinishAttack();
-        
-        attackCooldownTimer = stateData.attackCooldown;
+        enemy.attackCooldownTimer = stateData.attackCooldown;
     }
 }

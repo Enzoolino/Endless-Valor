@@ -53,10 +53,13 @@ public class Enemy_ChargeAttackState : Enemy_AttackState//It's deriving from Ene
         {
             collider.transform.SendMessage("TakeDamage", attackDetails);
         }
+        
+        enemy.didAttackHit = detectedObjects.Length != 0;
     }
 
     public override void FinishAttack()
     {
         base.FinishAttack();
+        enemy.attackCooldownTimer = stateData.attackCooldown;
     }
 }

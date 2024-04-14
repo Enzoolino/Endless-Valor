@@ -52,10 +52,15 @@ public class FlyingEye_ChargeAttackState : Enemy_ChargeAttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
+
+        enemy.enemyAudio.clip =
+            enemy.didAttackHit ? enemy.flyingEyeChargeAttackHitSound : enemy.flyingEyeAttackMissSound;
+        enemy.enemyAudio.Play();
     }
 
     public override void FinishAttack()
     {
         base.FinishAttack();
+        
     }
 }

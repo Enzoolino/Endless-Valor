@@ -37,8 +37,12 @@ MonoBehaviour:
   startOffset: {x: 0, y: 0.5}
   stopOffset: {x: 0, y: 0}
   comboTimer: 0.5
-  primaryAttackDamage: 25
+  primaryAttackDamage: 30
   primaryAttackStunDamage: 1
+  secondaryAttackDamage: 10
+  secondaryAttackStunDamage: 1
+  finishingAttackDamage: 40
+  finishingAttackStunDamage: 1
   climbLadderSpeed: 4
   deathScreenDelay: 5
   groundCheckRange: 0.05

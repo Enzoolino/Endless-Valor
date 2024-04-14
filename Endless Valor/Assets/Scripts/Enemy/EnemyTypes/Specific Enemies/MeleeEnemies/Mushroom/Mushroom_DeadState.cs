@@ -11,6 +11,9 @@ public class Mushroom_DeadState : Enemy_DeadState
     public override void EnterState()
     {
         base.EnterState();
+
+        enemy.enemyAudio.clip = enemy.mushroomDeathSound;
+        enemy.enemyAudio.Play();
     }
 
     public override void ExitState()

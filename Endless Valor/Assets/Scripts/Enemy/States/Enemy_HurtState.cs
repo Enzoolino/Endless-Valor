@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy_HurtState : EnemyState
 {
-    private D_Enemy_HurtState stateData;
+    protected D_Enemy_HurtState stateData;
 
     protected bool performCloseRangeAction;
     protected bool isPlayerInCloseAggroRange;
@@ -50,7 +50,6 @@ public class Enemy_HurtState : EnemyState
     public override void AnimationFinishTrigger()
     {
         base.AnimationFinishTrigger();
-
         enemy.isHurt = false;
     }
 }

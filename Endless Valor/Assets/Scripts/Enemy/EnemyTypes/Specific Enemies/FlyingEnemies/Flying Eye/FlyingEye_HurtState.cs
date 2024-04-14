@@ -14,13 +14,17 @@ public class FlyingEye_HurtState : Enemy_HurtState
     public override void EnterState()
     {
         base.EnterState();
-        enemy.enemyAudio.clip = enemy.flyingEyeHurt;
+        enemy.enemyAudio.clip = enemy.flyingEyeHurtSound;
         enemy.enemyAudio.Play();
+        
+        enemy.ResetBasicAttackCooldowns(stateData.resetCooldownValue);
     }
 
     public override void ExitState()
     {
         base.ExitState();
+        
+        
     }
 
     public override void LogicUpdate()
@@ -49,9 +53,9 @@ public class FlyingEye_HurtState : Enemy_HurtState
 
         if (performCloseRangeAction)
         {
-            enemyStateMachine.ChangeState(enemy.MeleeAttackState);
+            enemyStateMachine.ChangeState(enemy.PlayerDetectedState);
         }
-        else if (isPlayerInCloseAggroRange)
+        else if (isPlayerInCloseAggroRange && !performCloseRangeAction)
         {
             enemyStateMachine.ChangeState(enemy.ChargeState);
         }

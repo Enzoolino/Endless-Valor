@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Mushroom : MeleeEnemy
 {
@@ -28,8 +29,13 @@ public class Mushroom : MeleeEnemy
     [SerializeField] private Transform meleeAttackPosition;
 
     public AudioSource enemyAudio;
-    public AudioClip mushroomHurt;
-    public AudioClip mushroomDeath;
+    public AudioClip mushroomHurtSound;
+    public AudioClip mushroomDeathSound;
+    public AudioClip mushroomAttackHitSound;
+    public AudioClip mushroomAttackMissSound;
+    public AudioClip mushroomSurprisedSound;
+    public AudioClip mushroomStunSound;
+    
     
     public override void Start()
     {

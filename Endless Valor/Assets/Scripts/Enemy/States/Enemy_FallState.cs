@@ -18,7 +18,8 @@ public class Enemy_FallState : EnemyState
         base.EnterState();
         
         enemy.Rb.gravityScale = 1;
-        enemy.Rb.mass = 0.1f;
+        enemy.Rb.mass = 1f;
+        enemy.Rb.drag = 2;
     }
 
     public override void ExitState()
