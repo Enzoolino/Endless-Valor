@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] private AudioSource playerAudio;
     
-    
     #region State Variables
 
     public PlayerStateMachine StateMachine { get; private set; }
@@ -24,7 +23,8 @@ public class Player : MonoBehaviour
     public Player_LedgeClimbState LedgeClimbState { get; private set; }
     public Player_PrimaryAttackState PrimaryAttackState { get; private set; }
     public Player_SecondaryAttackState SecondaryAttackState { get; private set; }
-    public Player_FinishingAttackState finishingAttackStateState { get; private set; }
+    public Player_FinishingAttackState FinishingAttackState { get; private set; }
+    public Player_BlockState BlockState { get; private set; }
     public Player_ClimbLadder ClimbLadderState { get; private set; }
     public Player_HurtState HurtState { get; private set; }
     public Player_DeadState DeadState { get; private set; }
@@ -73,11 +73,12 @@ public class Player : MonoBehaviour
     private Vector2 velocityHolder;
 
     
-    
     public float currentHealth;
     [HideInInspector] public bool isHurt; //Trigger Hurt State
     [HideInInspector] public bool isDead; //Trigger Dead State
     [HideInInspector] public bool isNearLadder; //Check if ladder is near
+    [HideInInspector] public bool isBlocking;
+    
     
     
     private float comboTimer;
@@ -85,6 +86,7 @@ public class Player : MonoBehaviour
     
     public AudioClip attackClip;
     public AudioClip attackHitClip;
+    public AudioClip shieldBlockClip;
     
     #endregion
     
@@ -120,7 +122,8 @@ public class Player : MonoBehaviour
         LedgeClimbState = new Player_LedgeClimbState(this, StateMachine, playerData, "isInLedgeClimbState");
         PrimaryAttackState = new Player_PrimaryAttackState(this, StateMachine, playerData, "isAttackingPrimary");
         SecondaryAttackState = new Player_SecondaryAttackState(this, StateMachine, playerData, "isAttackingSecondary");
-        finishingAttackStateState = new Player_FinishingAttackState(this, StateMachine, playerData, "isAttackingFinishing");
+        FinishingAttackState = new Player_FinishingAttackState(this, StateMachine, playerData, "isAttackingFinishing");
+        BlockState = new Player_BlockState(this, StateMachine, playerData, "isBlocking");
         ClimbLadderState = new Player_ClimbLadder(this, StateMachine, playerData, "isClimbingLadder");
         HurtState = new Player_HurtState(this, StateMachine, playerData, "isHurt");
         DeadState = new Player_DeadState(this, StateMachine, playerData, "isDead");
@@ -162,7 +165,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CheckIfGrounded();     //Does nothing, just to debugging
+        CheckIfGrounded();     //Does nothing, just for debugging
         CheckIfTouchingWall(); //Does nothing, just for debugging
         StateMachine.CurrentState.PhysicsUpdate();
     }
@@ -253,6 +256,11 @@ public class Player : MonoBehaviour
 
     public bool CheckIfComboAvailable() => comboTimer > 0;
     public int CheckComboState() => comboState;
+
+    public bool CheckIfBlocking()
+    {
+        return isBlocking;
+    }
     
 
     #endregion

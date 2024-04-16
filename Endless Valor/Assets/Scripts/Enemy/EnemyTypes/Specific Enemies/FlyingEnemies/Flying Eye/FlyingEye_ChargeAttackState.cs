@@ -52,9 +52,16 @@ public class FlyingEye_ChargeAttackState : Enemy_ChargeAttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
-
-        enemy.enemyAudio.clip =
-            enemy.didAttackHit ? enemy.flyingEyeChargeAttackHitSound : enemy.flyingEyeAttackMissSound;
+        
+        if (enemy.didAttackHit && !enemy.wasAttackBlocked)
+        {
+            enemy.enemyAudio.clip = enemy.flyingEyeChargeAttackHitSound;
+        }
+        else if (!enemy.didAttackHit)
+        {
+            enemy.enemyAudio.clip = enemy.flyingEyeAttackMissSound;
+        }
+        
         enemy.enemyAudio.Play();
     }
 

@@ -54,8 +54,6 @@ public class PlayerState
             Debug.Log("Entering Player Hurt State");
             playerStateMachine.ChangeState(player.HurtState);
         }
-            
-        
     }
 
     public virtual void PhysicsUpdate()

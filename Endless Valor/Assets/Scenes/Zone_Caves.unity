@@ -347,8 +347,10 @@ MonoBehaviour:
   isHurt: 0
   isDead: 0
   isNearLadder: 0
+  isBlocking: 0
   attackClip: {fileID: 8300000, guid: ce90b388bbd5509429ab92adca55e47c, type: 3}
   attackHitClip: {fileID: 8300000, guid: eeedd43bc4e89504c9426ec3bbb76f85, type: 3}
+  shieldBlockClip: {fileID: 8300000, guid: 12b2d0a09a525ed4d85a99faac56ef81, type: 3}
   primaryAttackArea: {fileID: 757868101}
   secondaryAttackArea: {fileID: 613719951}
   finishingAttackArea: {fileID: 301898643}
@@ -599,7 +601,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 16488996}
         m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
-        m_MethodName: OnSecondaryAttackInput
+        m_MethodName: OnBlockInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Secondary Attack",
+                    "name": "Block",
                     "type": "Button",
                     "id": "c4956214-0521-4a9c-95ed-7e14ebad6411",
                     "expectedControlType": "Button",
@@ -145,7 +145,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Secondary Attack",
+                    "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

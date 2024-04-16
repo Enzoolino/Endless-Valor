@@ -16,6 +16,8 @@ public class Player_BlockState : Player_AbilityState
     public override void ExitState()
     {
         base.ExitState();
+        player.InputHandler.UseBlockInput();
+        player.isBlocking = false;
     }
 
     public override void LogicUpdate()
@@ -26,6 +28,12 @@ public class Player_BlockState : Player_AbilityState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        
+        player.SetVelocityZero();
+
+        if (player.InputHandler.BlockInputStop)
+            isAbilityDone = true;
+        
     }
 
     public override void DoChecks()
@@ -36,10 +44,12 @@ public class Player_BlockState : Player_AbilityState
     public override void AnimationTrigger()
     {
         base.AnimationTrigger();
+        player.isBlocking = true;
     }
 
     public override void AnimationFinishTrigger()
     {
         base.AnimationFinishTrigger();
+        isAbilityDone = true;
     }
 }

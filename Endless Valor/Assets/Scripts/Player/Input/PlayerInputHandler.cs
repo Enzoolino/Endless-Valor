@@ -19,7 +19,10 @@ public class PlayerInputHandler : MonoBehaviour
     
     //Attack properties
     public bool PrimaryAttackInput { get; private set; }
-    public bool SecondaryAttackInput { get; private set; }
+    
+    //Block properties
+    public bool BlockInput { get; private set; }
+    public bool BlockInputStop { get; private set; }
     
     //Ladder climb properties
     public bool LadderClimbInput { get; private set; }
@@ -79,15 +82,21 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void UsePrimaryAttackInput() => PrimaryAttackInput = false;
     
-    public void OnSecondaryAttackInput(InputAction.CallbackContext context)
+    public void OnBlockInput(InputAction.CallbackContext context)
     {
-        if (context.started && !SecondaryAttackInput)
+        if (context.started && !BlockInput)
         {
-            SecondaryAttackInput = true;
+            BlockInputStop = false;
+            BlockInput = true;
+        }
+
+        if (context.canceled)
+        {
+            BlockInputStop = true;
         }
     }
 
-    public void UseSecondaryAttackInput() => SecondaryAttackInput = false;
+    public void UseBlockInput() => BlockInput = false;
 
 
     public void OnLadderClimbInput(InputAction.CallbackContext context)

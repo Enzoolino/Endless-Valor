@@ -56,7 +56,15 @@ public class Mushroom_MeleeAttackState : Enemy_MeleeAttackState
     {
         base.TriggerAttack();
 
-        enemy.enemyAudio.clip = enemy.didAttackHit ? enemy.mushroomAttackHitSound : enemy.mushroomAttackMissSound;
+        if (enemy.didAttackHit && !enemy.wasAttackBlocked)
+        {
+            enemy.enemyAudio.clip = enemy.mushroomAttackHitSound;
+        }
+        else if (!enemy.didAttackHit)
+        {
+            enemy.enemyAudio.clip = enemy.mushroomAttackMissSound;
+        }
+        
         enemy.enemyAudio.Play();
     }
 

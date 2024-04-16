@@ -51,9 +51,18 @@ public class Enemy_ChargeAttackState : Enemy_AttackState//It's deriving from Ene
 
         foreach (Collider2D collider in detectedObjects)
         {
-            collider.transform.SendMessage("TakeDamage", attackDetails);
+            if (!player.CheckIfBlocking())
+            {
+                collider.transform.SendMessage("TakeDamage", attackDetails);
+            }
+            else
+            {
+                player.PlayerAudio.clip = player.shieldBlockClip;
+                player.PlayerAudio.Play();
+                enemy.wasAttackBlocked = true;
+            }
         }
-        
+
         enemy.didAttackHit = detectedObjects.Length != 0;
     }
 

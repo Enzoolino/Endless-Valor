@@ -53,8 +53,16 @@ public class FlyingEye_MeleeAttackState : Enemy_MeleeAttackState
     {
         base.TriggerAttack();
 
-        enemy.enemyAudio.clip =
-            enemy.didAttackHit ? enemy.flyingEyeMeleeAttackHitSound : enemy.flyingEyeAttackMissSound;
+        
+        if (enemy.didAttackHit && !enemy.wasAttackBlocked)
+        {
+            enemy.enemyAudio.clip = enemy.flyingEyeMeleeAttackHitSound;
+        }
+        else if (!enemy.didAttackHit)
+        {
+            enemy.enemyAudio.clip = enemy.flyingEyeAttackMissSound;
+        }
+        
         enemy.enemyAudio.Play();
     }
 

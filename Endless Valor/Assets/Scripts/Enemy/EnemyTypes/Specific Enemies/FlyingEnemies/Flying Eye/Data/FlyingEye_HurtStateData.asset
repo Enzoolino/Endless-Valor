@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854923d427ad49f41b7a4928f3074389, type: 3}
   m_Name: FlyingEye_HurtStateData
   m_EditorClassIdentifier: 
+  resetCooldownValue: 0.5

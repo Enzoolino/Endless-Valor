@@ -17,6 +17,8 @@ public class Mushroom_HurtState : Enemy_HurtState
 
         enemy.enemyAudio.clip = enemy.mushroomHurtSound;
         enemy.enemyAudio.Play();
+        
+        enemy.ResetBasicAttackCooldowns(stateData.resetCooldownValue);
     }
 
     public override void ExitState()
@@ -52,7 +54,7 @@ public class Mushroom_HurtState : Enemy_HurtState
         {
             enemyStateMachine.ChangeState(enemy.PlayerDetectedState);
         }
-        else if (isPlayerInCloseAggroRange)
+        else if (isPlayerInCloseAggroRange && !performCloseRangeAction)
         {
             enemyStateMachine.ChangeState(enemy.ChargeState);
         }

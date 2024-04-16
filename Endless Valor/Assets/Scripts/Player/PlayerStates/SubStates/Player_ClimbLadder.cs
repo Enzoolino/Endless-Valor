@@ -13,8 +13,6 @@ public class Player_ClimbLadder : Player_AbilityState
     public override void EnterState()
     {
         base.EnterState();
-        Debug.Log("Entered Ladder State");
-        
         player.Rb.gravityScale = 0f;
     }
 

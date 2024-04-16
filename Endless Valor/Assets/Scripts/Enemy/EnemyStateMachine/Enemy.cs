@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public bool isDead; //Trigger dead state
 
     [HideInInspector] public bool didAttackHit;
+    [HideInInspector] public bool wasAttackBlocked;
     public float attackCooldownTimer;
 
     
